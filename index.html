@@ -1,0 +1,1961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H.I.E.T Teaching Strategies | استراتيجيات التدريس</title>
+    <style>
+        :root {
+            --primary-blue: #87CEEB; /* Light Blue Background */
+            --header-bg: rgba(255, 255, 255, 0.98);
+            --text-dark: #2c3e50;
+            --btn-green: #28a745;
+            --btn-green-hover: #218838;
+            --btn-red: #dc3545;
+            --btn-red-hover: #c82333;
+            --btn-blue: #007bff;
+            --amber-bg: #fff3cd;
+            --amber-text: #856404;
+            --info-bg: #d1ecf1;
+            --info-text: #0c5460;
+            --sidebar-width: 280px;
+            
+            /* Bloom's Colors */
+            --bloom-create: #d63384;
+            --bloom-eval: #6f42c1;
+            --bloom-analyze: #0d6efd;
+            --bloom-apply: #0dcaf0;
+            --bloom-understand: #ffc107;
+            --bloom-remember: #198754;
+        }
+
+        html {
+            font-size: 16px; /* Base size, controlled by Zoom */
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            padding-bottom: 50px; /* Space for footer */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(180deg, #ffffff 0%, var(--primary-blue) 100%);
+            color: var(--text-dark);
+            line-height: 1.5;
+            overflow-x: hidden;
+            min-height: 100vh;
+            text-shadow: 0px 1px 1px rgba(0,0,0,0.1); 
+        }
+
+        /* RTL Support */
+        body.rtl {
+            direction: rtl;
+            text-align: right;
+        }
+        body.rtl .header-left {
+            flex-direction: row-reverse;
+        }
+        body.rtl #sidebar {
+            left: auto;
+            right: calc(-1 * var(--sidebar-width));
+            border-right: none;
+            border-left: 1px solid #ddd;
+        }
+        body.rtl #sidebar.active {
+            right: 0;
+        }
+        body.rtl .nav-scroller {
+            direction: rtl; 
+        }
+        body.rtl .instruction-panel {
+            border-right: 4px solid;
+            border-left: none;
+        }
+        body.rtl .teacher-note, body.rtl .student-note {
+            border-right: 4px solid;
+            border-left: none;
+        }
+        body.rtl details > summary {
+            list-style-position: inside;
+        }
+
+        /* Sticky Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: var(--header-bg);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            box-sizing: border-box;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            padding: 0 5px;
+            transition: transform 0.2s;
+        }
+        .menu-toggle:hover { transform: scale(1.1); }
+
+        .header-title {
+            font-weight: 300;
+            font-size: 1.2rem;
+            margin: 0;
+            white-space: nowrap;
+            text-shadow: none;
+        }
+
+        /* Horizontal Nav (Top) */
+        .nav-scroller {
+            flex-grow: 1;
+            overflow-x: auto;
+            white-space: nowrap;
+            margin: 0 1rem;
+            scrollbar-width: none; 
+            -ms-overflow-style: none; 
+            text-align: center;
+        }
+        .nav-scroller::-webkit-scrollbar { display: none; }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: #555;
+            padding: 0.5rem 0.8rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: color 0.3s, font-weight 0.3s, transform 0.2s;
+        }
+        .nav-btn:hover {
+            color: var(--btn-blue);
+            transform: scale(1.05);
+        }
+        .nav-btn.active {
+            color: var(--btn-blue);
+            font-weight: bold;
+            border-bottom: 2px solid var(--btn-blue);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .circle-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            background: white;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, background 0.2s;
+            box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .circle-btn:hover {
+            transform: scale(1.1);
+            background: #f0f0f0;
+        }
+
+        /* Dropdown Styles */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 45px;
+            background-color: #ffffff;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 2000;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+        body.rtl .dropdown-content { right: auto; left: 0; }
+        
+        .dropdown-content a {
+            color: var(--text-dark);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .dropdown-content a:last-child { border-bottom: none; }
+        body.rtl .dropdown-content a { text-align: right; }
+        
+        .dropdown-content a:hover { background-color: #f1f5f9; color: var(--btn-blue); }
+        .show { display: block; }
+
+        .lang-toggle {
+            padding: 5px 12px;
+            border: 1px solid var(--btn-blue);
+            background: white;
+            color: var(--btn-blue);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .lang-toggle:hover {
+            background: var(--btn-blue);
+            color: white;
+        }
+
+        /* SIDEBAR STYLES */
+        #sidebar {
+            position: fixed;
+            top: 60px;
+            left: calc(-1 * var(--sidebar-width));
+            width: var(--sidebar-width);
+            height: calc(100% - 60px - 40px);
+            background: #f8f9fa;
+            border-right: 1px solid #ddd;
+            transition: left 0.3s ease, right 0.3s ease;
+            z-index: 950;
+            overflow-y: auto;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        #sidebar.active { left: 0; }
+
+        .sidebar-header {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--btn-blue);
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-list { list-style: none; padding: 0; margin: 0; }
+        .sidebar-item { margin-bottom: 8px; }
+
+        .sidebar-link {
+            text-decoration: none;
+            color: #444;
+            font-size: 0.95rem;
+            display: block;
+            padding: 8px 10px;
+            border-radius: 4px;
+            transition: background 0.2s, padding-left 0.2s;
+        }
+        .sidebar-link:hover {
+            background: #e9ecef;
+            color: var(--btn-blue);
+            transform: scale(1.02);
+            transform-origin: left;
+        }
+        body.rtl .sidebar-link:hover { transform-origin: right; }
+
+        .sidebar-sub {
+            padding-inline-start: 20px;
+            font-size: 0.85rem;
+        }
+
+        /* Overlay */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 60px; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: 900;
+        }
+        #overlay.active { display: block; }
+
+        /* Main Content */
+        main {
+            padding: 80px 10px 20px 10px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-card {
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid transparent;
+        }
+        .section-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--btn-blue);
+        }
+
+        h1, h2, h3 {
+            font-weight: 300; 
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+            color: #004085;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+        }
+        h2 {
+            font-size: 1.6rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+        h3 {
+            font-size: 1.2rem;
+            color: #17a2b8;
+            margin-top: 1.2rem;
+        }
+        p, li { margin-bottom: 0.5rem; }
+        ul { padding-inline-start: 1.5rem; }
+
+        /* Strategy Controls */
+        .strategy-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f1f3f5;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .strategy-bar h2 {
+            margin: 0;
+            border: none;
+            padding: 0;
+            font-size: 1.3rem;
+        }
+        select.strategy-select {
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: white;
+            cursor: pointer;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        /* Instruction Panels */
+        .instruction-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        .teacher-note {
+            background: var(--amber-bg);
+            color: var(--amber-text);
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 5px solid #ffc107;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .student-note {
+            background: var(--info-bg);
+            color: var(--info-text);
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 5px solid #17a2b8;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .instruction-panel ul {
+            margin: 0;
+            padding-inline-start: 1.2rem;
+        }
+        .instruction-panel li {
+            margin-bottom: 4px;
+        }
+        .note-title {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Collapsible Details Styles */
+        details {
+            margin-bottom: 10px;
+            background: #f8fbff;
+            border: 1px solid #e1e8ed;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        details[open] {
+            border-left: 4px solid var(--btn-blue);
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        summary {
+            cursor: pointer;
+            padding: 12px;
+            font-weight: bold;
+            color: #2c3e50;
+            outline: none;
+            display: flex;
+            align-items: center;
+            list-style: none; 
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::after {
+            content: '+'; 
+            margin-left: auto; 
+            font-weight: bold;
+            color: var(--btn-blue);
+            transition: transform 0.2s;
+        }
+        body.rtl summary::after { margin-left: 0; margin-right: auto; }
+        details[open] summary::after { content: '-'; transform: rotate(180deg); }
+        
+        summary:hover {
+            color: var(--btn-blue);
+            background: #f1f5f9;
+        }
+        summary strong {
+            display: inline-block;
+            margin-inline-end: 8px;
+        }
+        .step-content {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            color: #444;
+            font-size: 0.95rem;
+            animation: slideDown 0.3s ease-out;
+            line-height: 1.6;
+        }
+        .step-title {
+            color: var(--btn-green);
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 4px;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Visual Diagrams */
+        .visual-container {
+            margin: 20px 0;
+            padding: 15px;
+            background: #fdfdfd;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        .blooms-wrapper {
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 5px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .bloom-level {
+            text-align: center;
+            padding: 8px;
+            color: white;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: transform 0.2s;
+            position: relative;
+            cursor: default;
+        }
+        .bloom-level:hover { transform: scale(1.02); z-index: 10; box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
+        
+        .bloom-name { display: block; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
+        .bloom-verbs { display: block; font-size: 0.8rem; font-weight: normal; margin-top: 2px; opacity: 0.95; }
+        
+        .b-create { background-color: var(--bloom-create); width: 100%; }
+        .b-eval { background-color: var(--bloom-eval); width: 90%; margin: 0 auto; }
+        .b-analyze { background-color: var(--bloom-analyze); width: 80%; margin: 0 auto; }
+        .b-apply { background-color: var(--bloom-apply); width: 70%; margin: 0 auto; }
+        .b-understand { background-color: var(--bloom-understand); width: 60%; margin: 0 auto; color: #333; }
+        .b-remember { background-color: var(--bloom-remember); width: 50%; margin: 0 auto; }
+
+        .circles-wrapper {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .outer-circle {
+            width: 100%;
+            height: 100%;
+            background: #e3f2fd; 
+            border: 2px solid var(--btn-blue);
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        .outer-circle:hover { transform: scale(1.02); }
+        
+        .inner-circle {
+            width: 55%;
+            height: 55%;
+            background: #fff3cd; 
+            border: 2px solid #ffc107;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 10px;
+            z-index: 2;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .circle-label {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            color: #444;
+        }
+        .circle-content {
+            font-size: 0.75rem;
+            color: #666;
+            line-height: 1.3;
+        }
+        
+        .outer-text {
+            position: absolute;
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            text-align: center;
+            width: 80px;
+            font-weight: 500;
+        }
+        .ot-top { top: 15px; left: 50%; transform: translateX(-50%); }
+        .ot-bottom { bottom: 15px; left: 50%; transform: translateX(-50%); }
+        .ot-left { top: 50%; left: 5px; transform: translateY(-50%); }
+        .ot-right { top: 50%; right: 5px; transform: translateY(-50%); }
+        
+        .outer-main-label {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            color: var(--btn-blue);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        /* Assessment Section */
+        .mcq-container {
+            display: grid;
+            gap: 15px;
+        }
+        .mcq-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+            transition: background 0.2s;
+        }
+        .mcq-card:hover { background: #fff; border-color: #d6d8db; }
+        
+        .mcq-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .btn-opt {
+            padding: 8px 16px;
+            border: 1px solid #ced4da;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .btn-opt:hover { background: #e2e6ea; transform: translateY(-1px); }
+        .btn-opt.correct {
+            background: var(--btn-green);
+            color: white;
+            border-color: var(--btn-green);
+        }
+        .btn-opt.incorrect {
+            background: var(--btn-red);
+            color: white;
+            border-color: var(--btn-red);
+            animation: shake 0.4s;
+        }
+
+        /* Final Exam */
+        .final-exam-card {
+            border: 2px solid var(--btn-blue);
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            position: relative;
+        }
+        .final-exam-card::before {
+            content: "FINAL EXAM PREVIEW";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--btn-blue);
+            color: white;
+            padding: 2px 10px;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        body.rtl .final-exam-card::before { left: auto; right: 20px; }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            resize: vertical;
+            font-family: inherit;
+            margin-top: 10px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .model-answer-box {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 6px;
+        }
+
+        .action-btn {
+            background: var(--btn-green);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+            transition: background 0.2s, transform 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .action-btn:hover { background: var(--btn-green-hover); transform: translateY(-2px); }
+        
+        .cancel-btn {
+            background: var(--btn-red);
+            margin-inline-start: 10px;
+        }
+        .cancel-btn:hover { background: var(--btn-red-hover); }
+
+        /* Footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: #343a40;
+            color: #f8f9fa;
+            text-align: center;
+            line-height: 40px;
+            font-size: 0.85rem;
+            z-index: 1000;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .instruction-panel { grid-template-columns: 1fr; }
+            .strategy-bar { flex-direction: column; align-items: flex-start; }
+            .strategy-bar select { width: 100%; margin-top: 5px; }
+            h2 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body class="ltr">
+
+<!-- HEADER -->
+<header>
+    <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <div class="header-title" id="app-title" data-key="app_title">H.I.E.T Strategies</div>
+    </div>
+    
+    <nav class="nav-scroller">
+        <button class="nav-btn" onclick="scrollToId('section-objectives')" data-key="nav_obj" id="nav-section-objectives">Objectives</button>
+        <button class="nav-btn active" onclick="scrollToId('section-intro')" data-key="nav_intro" id="nav-section-intro">Introduction</button>
+        <button class="nav-btn" onclick="scrollToId('section-vark')" data-key="nav_vark" id="nav-section-vark">VARK Styles</button>
+        <button class="nav-btn" onclick="scrollToId('section-strategies')" data-key="nav_strat" id="nav-section-strategies">Strategies</button>
+        <button class="nav-btn" onclick="scrollToId('section-extra')" data-key="nav_extra" id="nav-section-extra">Extra Materials</button>
+        <button class="nav-btn" onclick="scrollToId('section-assessment')" data-key="nav_assess" id="nav-section-assessment">Assessment</button>
+        <button class="nav-btn" onclick="scrollToId('section-quiz')" data-key="nav_quiz" id="nav-section-quiz">Quiz</button>
+    </nav>
+
+    <div class="controls">
+        <!-- Download Button -->
+        <div class="dropdown">
+            <button class="circle-btn" onclick="toggleDownload()" id="dl-btn" title="Download Materials">📥</button>
+            <div id="dl-menu" class="dropdown-content">
+                <a href="00.pdf" download id="dl-pdf" target="_blank">📄 PDF File</a>
+                <a href="00.txt" download id="dl-txt" target="_blank">📝 Text File</a>
+            </div>
+        </div>
+
+        <button class="circle-btn" onclick="adjustZoom(-1)">−</button>
+        <button class="circle-btn" onclick="adjustZoom(1)">+</button>
+        <button class="lang-toggle" onclick="toggleLanguage()" id="lang-btn">عربي</button>
+    </div>
+</header>
+
+<!-- SIDEBAR & OVERLAY -->
+<div id="overlay" onclick="toggleSidebar()"></div>
+<div id="sidebar">
+    <div class="sidebar-header">
+        <span data-key="toc_title">Table of Contents</span>
+        <button class="menu-toggle" onclick="toggleSidebar()">×</button>
+    </div>
+    <ul class="sidebar-list">
+        <li class="sidebar-item"><a href="#" onclick="navClick('section-objectives')" class="sidebar-link" data-key="nav_obj">Learning Objectives</a></li>
+        
+        <li class="sidebar-item"><a href="#" onclick="navClick('section-intro')" class="sidebar-link" data-key="s1_title">Introduction & Concepts</a></li>
+        <li class="sidebar-item sidebar-sub"><a href="#" onclick="navClick('section-intro')" class="sidebar-link" data-key="s1_sub1">Teaching vs Learning</a></li>
+        
+        <li class="sidebar-item"><a href="#" onclick="navClick('section-vark')" class="sidebar-link" data-key="s2_title">Learning Styles (VARK)</a></li>
+        <li class="sidebar-item sidebar-sub"><a href="#" onclick="navClick('section-vark')" class="sidebar-link" data-key="s2_sub1">Visual, Auditory, Read, Kinesthetic</a></li>
+        
+        <li class="sidebar-item"><a href="#" onclick="navClick('section-strategies')" class="sidebar-link" data-key="s3_title">Teaching Strategies</a></li>
+        <li class="sidebar-item sidebar-sub"><a href="#" onclick="navClick('section-strategies')" class="sidebar-link" data-key="s3_sub1">Lecturer-Centered</a></li>
+        <li class="sidebar-item sidebar-sub"><a href="#" onclick="navClick('section-strategies')" class="sidebar-link" data-key="s3_sub2">Student-Centered</a></li>
+        <li class="sidebar-item sidebar-sub"><a href="#" onclick="navClick('section-strategies')" class="sidebar-link" data-key="s3_sub3">Cooperative Learning</a></li>
+        
+        <li class="sidebar-item"><a href="#" onclick="navClick('section-extra')" class="sidebar-link" data-key="s_extra_title">Extra Materials</a></li>
+
+        <li class="sidebar-item"><a href="#" onclick="navClick('section-assessment')" class="sidebar-link" data-key="s4_title">Assessment Systems</a></li>
+        <li class="sidebar-item sidebar-sub"><a href="#" onclick="navClick('section-assessment')" class="sidebar-link" data-key="s4_sub1">Formative vs Summative</a></li>
+        
+        <li class="sidebar-item"><a href="#" onclick="navClick('section-quiz')" class="sidebar-link" data-key="q_title">Interactive Quiz</a></li>
+    </ul>
+</div>
+
+<main>
+
+    <!-- NEW SECTION: OBJECTIVES -->
+    <section id="section-objectives" class="section-card">
+        <h2 data-key="obj_title">Learning Objectives</h2>
+        <p data-key="obj_intro">By the end of this session, participants will be able to:</p>
+        <ul style="line-height: 1.8;">
+            <li data-key="obj_l1">Define the core concepts of Teaching, Learning, and Assessment strategies.</li>
+            <li data-key="obj_l2">Identify different learning styles based on the VARK model.</li>
+            <li data-key="obj_l3">Differentiate between Lecturer-Centered, Student-Centered, and Cooperative learning strategies.</li>
+            <li data-key="obj_l4">Analyze appropriate teaching strategies for engineering education contexts.</li>
+            <li data-key="obj_l5">Compare the purposes and methods of Formative vs. Summative assessment.</li>
+        </ul>
+    </section>
+
+    <!-- SECTION 1: Introduction -->
+    <section id="section-intro" class="section-card">
+        <div class="strategy-bar">
+            <h2 data-key="s1_title">Introduction & Concepts</h2>
+            <select class="strategy-select" onchange="updateView('s1', this.value)">
+                <option value="lecture" data-key="opt_lecture">Interactive Lecture (Standard)</option>
+                <option value="self_learning" data-key="opt_self">Online Self-Learning</option>
+            </select>
+        </div>
+        
+        <div class="instruction-panel">
+            <div class="teacher-note" id="s1-teacher">
+                <!-- Injected via JS -->
+            </div>
+            <div class="student-note" id="s1-student">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+
+        <div class="content-body" id="s1-content">
+            <p data-key="s1_p1">Quality assurance in higher education requires precise definition of teaching, learning, and assessment strategies linked to learning outcomes (NARS 2018). These strategies are crucial for program success.</p>
+            <h3 data-key="s1_h3_concepts">General Concepts</h3>
+            
+            <!-- VISUAL SHAPES -->
+            <div class="visual-container">
+                <h4 style="text-align:center; color: var(--text-dark); margin-bottom: 10px;" data-key="vis_bloom_title">1. Bloom's Taxonomy Levels</h4>
+                <div class="blooms-wrapper">
+                    <div class="bloom-level b-create">
+                        <span class="bloom-name" data-key="bl_create">Create</span>
+                        <span class="bloom-verbs" data-key="bl_create_v">Design, Assemble, Construct, Conjecture</span>
+                    </div>
+                    <div class="bloom-level b-eval">
+                        <span class="bloom-name" data-key="bl_eval">Evaluate</span>
+                        <span class="bloom-verbs" data-key="bl_eval_v">Judge, Appraise, Argue, Defend</span>
+                    </div>
+                    <div class="bloom-level b-analyze">
+                        <span class="bloom-name" data-key="bl_analyze">Analyze</span>
+                        <span class="bloom-verbs" data-key="bl_analyze_v">Differentiate, Organize, Relate, Compare</span>
+                    </div>
+                    <div class="bloom-level b-apply">
+                        <span class="bloom-name" data-key="bl_apply">Apply</span>
+                        <span class="bloom-verbs" data-key="bl_apply_v">Calculate, Solve, Interpret, Demonstrate</span>
+                    </div>
+                    <div class="bloom-level b-understand">
+                        <span class="bloom-name" data-key="bl_understand">Understand</span>
+                        <span class="bloom-verbs" data-key="bl_understand_v">Describe, Explain, Identify, Locate</span>
+                    </div>
+                    <div class="bloom-level b-remember">
+                        <span class="bloom-name" data-key="bl_remember">Remember</span>
+                        <span class="bloom-verbs" data-key="bl_remember_v">List, Define, Memorize, Repeat</span>
+                    </div>
+                </div>
+
+                <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ddd;">
+
+                <h4 style="text-align:center; color: var(--text-dark); margin-bottom: 10px;" data-key="vis_circle_title">2. Strategies vs. Methods</h4>
+                <div class="circles-wrapper">
+                    <div class="outer-circle">
+                        <span class="outer-main-label" data-key="c_strat">Strategies</span>
+                        <span class="outer-text ot-top" data-key="c_st1">Cooperative Learning</span>
+                        <span class="outer-text ot-bottom" data-key="c_st2">Problem Solving</span>
+                        <span class="outer-text ot-left" data-key="c_st3">Discovery</span>
+                        <span class="outer-text ot-right" data-key="c_st4">Experiential</span>
+
+                        <div class="inner-circle">
+                            <span class="circle-label" data-key="c_meth">Methods</span>
+                            <span class="circle-content" data-key="c_meth_list">
+                                Lecture<br>
+                                Discussion<br>
+                                Demonstration<br>
+                                Storytelling
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ul>
+                <li><strong data-key="term_teaching">Teaching:</strong> <span data-key="def_teaching">An intentional, planned process by faculty to help students achieve learning outcomes (knowledge, skills, behaviors).</span></li>
+                <li><strong data-key="term_learning">Learning:</strong> <span data-key="def_learning">Self-activity by the student (supervised or not) to acquire knowledge, skill, or behavior change. It is the result of practice and experience. Distinction: Teaching is facilitation by a qualified person. Learning is the student's own effort to acquire knowledge.</span></li>
+            </ul>
+            <p data-key="s1_summary"><strong>Distinction:</strong> Teaching is facilitation by a qualified person. Learning is the student's own effort to acquire knowledge.</p>
+        </div>
+    </section>
+
+    <!-- SECTION 2: VARK Styles -->
+    <section id="section-vark" class="section-card">
+        <div class="strategy-bar">
+            <h2 data-key="s2_title">Learning Styles (VARK)</h2>
+            <select class="strategy-select" onchange="updateView('s2', this.value)">
+                <option value="presentation" data-key="opt_pres">Presentations (Visual)</option>
+                <option value="experiential" data-key="opt_exp">Experiential Learning (Kinesthetic)</option>
+            </select>
+        </div>
+
+        <div class="instruction-panel">
+            <div class="teacher-note" id="s2-teacher">
+                <!-- Injected via JS -->
+            </div>
+            <div class="student-note" id="s2-student">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+
+        <div class="content-body" id="s2-content">
+            <p data-key="s2_intro">Active learning transforms the student from a passive receiver to an active participant. People remember 10% of what they read, but 90% of what they do.</p>
+            <h3 data-key="s2_header">The VARK Model</h3>
+            <div class="grid-layout">
+                <ul>
+                    <li><strong data-key="vark_v">Visual:</strong> <span data-key="vark_v_desc">Learn via images, maps, charts, diagrams. High imagination.</span></li>
+                    <li><strong data-key="vark_a">Auditory:</strong> <span data-key="vark_a_desc">Learn via sound, lectures, discussions, and conversation.</span></li>
+                    <li><strong data-key="vark_r">Read/Write:</strong> <span data-key="vark_r_desc">Most common. Rely on continuous reading, writing, and rewriting notes.</span></li>
+                    <li><strong data-key="vark_k">Kinesthetic:</strong> <span data-key="vark_k_desc">Learn via movement, practical training, experiments, and trial.</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: Strategies (Expanded Collapsible Steps) -->
+    <section id="section-strategies" class="section-card">
+        <div class="strategy-bar">
+            <h2 data-key="s3_title">Teaching Strategies</h2>
+            <select class="strategy-select" onchange="updateView('s3', this.value)">
+                <option value="list" data-key="opt_list">Full List (Lecture)</option>
+                <option value="brainstorm" data-key="opt_brain">Brainstorming (Cooperative)</option>
+                <option value="projects" data-key="opt_proj">Collaborative Projects</option>
+                <option value="pbl" data-key="opt_pbl">Problem Based Learning</option>
+            </select>
+        </div>
+
+        <div class="instruction-panel">
+            <div class="teacher-note" id="s3-teacher">
+                <!-- Injected via JS -->
+            </div>
+            <div class="student-note" id="s3-student">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+
+        <div class="content-body" id="s3-content">
+            <p data-key="s3_intro">H.I.E.T adopts "Student-Centered" strategies mostly, with some "Lecturer-Centered" methods where necessary.</p>
+            
+            <h3 data-key="s3_h3_1">1. Lecturer-Centered Strategies</h3>
+            <details>
+                <summary><strong data-key="st_interactive">Interactive Lecture:</strong> <span data-key="st_interactive_desc">Involves students by asking for opinions...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Implementation Steps:</span>
+                    <ul data-key="list_interactive">
+                        <li>Introduce the topic with a clear overview.</li>
+                        <li>Ask provocative questions to elicit opinions/predictions.</li>
+                        <li>Ensure every student participates at least once.</li>
+                        <li>Monitor engagement and adjust pace accordingly.</li>
+                    </ul>
+                </div>
+            </details>
+            <details>
+                <summary><strong data-key="st_field">Guided Field Trips:</strong> <span data-key="st_field_desc">Moving class to a real site...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Implementation Steps:</span>
+                    <ul data-key="list_field">
+                        <li>Select a site (e.g., factory) relevant to the syllabus.</li>
+                        <li>Brief students on safety and learning objectives before travel.</li>
+                        <li>Guide students to observe real-world applications of theory.</li>
+                        <li>Conduct a debriefing session to match practice with theory.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <h3 data-key="s3_h3_2">2. Student-Centered Strategies</h3>
+            <details>
+                <summary><strong data-key="st_online">Online Self-Learning:</strong> <span data-key="st_online_desc">Students study assigned material alone...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Implementation Steps:</span>
+                    <ul data-key="list_online">
+                        <li>Assign specific reading or digital material.</li>
+                        <li>Students study independently before the class.</li>
+                        <li>Use class time solely for discussion and answering deep questions.</li>
+                        <li>Focus on developing analysis and self-confidence.</li>
+                    </ul>
+                </div>
+            </details>
+            <details>
+                <summary><strong data-key="st_debate">Debate & Discussion:</strong> <span data-key="st_debate_desc">Verbal dialogue management...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Implementation Steps:</span>
+                    <ul data-key="list_debate">
+                        <li>Pose a controversial or complex question.</li>
+                        <li>Students prepare arguments for the next session.</li>
+                        <li>Manage a structured verbal dialogue/debate in class.</li>
+                        <li>Encourage expression of diverse opinions and confidence.</li>
+                    </ul>
+                </div>
+            </details>
+            <details>
+                <summary><strong data-key="st_report">Reporting/Research:</strong> <span data-key="st_report_desc">Writing reports on topics...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Implementation Steps:</span>
+                    <ul data-key="list_report">
+                        <li>Define a specific research topic related to the course.</li>
+                        <li>Students conduct research and write a structured report.</li>
+                        <li>Focus on professional writing, image usage, and analysis.</li>
+                        <li>Evaluate based on depth of research and clarity.</li>
+                    </ul>
+                </div>
+            </details>
+            <details>
+                <summary><strong data-key="st_pbl">Problem-Based Learning:</strong> <span data-key="st_pbl_desc">Analyzing and solving a problem...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Implementation Steps:</span>
+                    <ul data-key="list_pbl">
+                        <li>Present a real-world problem to the students.</li>
+                        <li>Students analyze the problem and deduce root causes.</li>
+                        <li>Students search for and propose multiple solutions.</li>
+                        <li>Evaluate and compare solutions to find the best fit.</li>
+                    </ul>
+                </div>
+            </details>
+            <details>
+                <summary><strong data-key="st_exp">Experiential Learning:</strong> <span data-key="st_exp_desc">Performing lab/field experiments...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Implementation Steps:</span>
+                    <ul data-key="list_exp">
+                        <li>Set up a lab or field experiment.</li>
+                        <li>Students perform the task and monitor inputs.</li>
+                        <li>Students record outputs and observe changes.</li>
+                        <li>Deduce relationships and conclusions from the data.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <h3 data-key="s3_h3_3">3. Cooperative Learning</h3>
+            <details>
+                <summary><strong data-key="st_brain">Brainstorming:</strong> <span data-key="st_brain_desc">Generating creative ideas...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Implementation Steps:</span>
+                    <ul data-key="list_brain">
+                        <li>Introduce a problem or topic to the group.</li>
+                        <li>Encourage rapid generation of ideas without judgment.</li>
+                        <li>Focus on quantity and idea fluency over logic initially.</li>
+                        <li>Review and refine ideas in a secondary phase.</li>
+                    </ul>
+                </div>
+            </details>
+            <details>
+                <summary><strong data-key="st_collab">Collaborative Projects:</strong> <span data-key="st_collab_desc">Groups work on tasks...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Implementation Steps:</span>
+                    <ul data-key="list_collab">
+                        <li>Form small, diverse groups of students.</li>
+                        <li>Assign a complex task or project.</li>
+                        <li>Students organize roles and manage their team.</li>
+                        <li>Evaluate both the final product and team dynamics.</li>
+                    </ul>
+                </div>
+            </details>
+            <details>
+                <summary><strong data-key="st_pres">Presentations:</strong> <span data-key="st_pres_desc">Using tools to present facts...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Implementation Steps:</span>
+                    <ul data-key="list_pres">
+                        <li>Students prepare electronic slides (images, video).</li>
+                        <li>Students present facts and concepts to peers.</li>
+                        <li>Allows for self-paced learning and review.</li>
+                        <li>Enhances communication and technical skills.</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <!-- SECTION 4: Extra Materials -->
+    <section id="section-extra" class="section-card">
+        <div class="strategy-bar">
+            <h2 data-key="s_extra_title">Extra Materials (Engineering Focus)</h2>
+        </div>
+        
+        <div class="content-body" id="s_extra-content">
+            <p data-key="s_extra_intro">Additional advanced strategies suitable for engineering education, emphasizing digital integration and practical application.</p>
+
+            <details>
+                <summary><strong data-key="st_demo">Demonstration Strategy:</strong> <span data-key="st_demo_desc">Instructor demonstrates a skill/process...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="st_desc_title">Description:</span>
+                    <p data-key="desc_demo">A teaching method in which the instructor actively demonstrates a skill or process to students to provide a visual model of execution, enhancing understanding through observation.</p>
+                    <span class="step-title" data-key="st_steps_title">Implementation Steps:</span>
+                    <ul data-key="list_demo_steps">
+                        <li>Explain the purpose and theory behind the skill.</li>
+                        <li>Demonstrate the skill slowly and clearly step-by-step.</li>
+                        <li>Allow students to practice under supervision.</li>
+                        <li>Provide immediate feedback and correct errors.</li>
+                    </ul>
+                    <span class="step-title" data-key="st_adv">Advantages:</span>
+                    <ul data-key="list_demo_adv">
+                        <li>Active learning & Visual learning.</li>
+                        <li>Personalized feedback on errors.</li>
+                        <li>Enhanced retention of practical skills.</li>
+                    </ul>
+                    <span class="step-title" style="color:var(--btn-red);" data-key="st_dis">Disadvantages:</span>
+                    <ul data-key="list_demo_dis">
+                        <li>Limited scope (can't demo everything).</li>
+                        <li>Time-consuming for individual support.</li>
+                        <li>Limited student engagement if topic is dry.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary><strong data-key="st_blend">Blended Learning:</strong> <span data-key="st_blend_desc">Combines traditional classroom with digital learning...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="st_desc_title">Description:</span>
+                    <p data-key="desc_blend">An approach that mixes traditional face-to-face classroom methods with online digital media and tasks, giving students some control over time, place, path, or pace.</p>
+                    <span class="step-title" data-key="st_steps_title">Implementation Steps:</span>
+                    <ul data-key="list_blend_steps">
+                        <li>Analyze the curriculum to decide which parts are best online vs. offline.</li>
+                        <li>Select or create digital materials (videos, quizzes).</li>
+                        <li>Design face-to-face activities that deepen online learning.</li>
+                        <li>Integrate assessments that cover both modes.</li>
+                    </ul>
+                    <span class="step-title" data-key="st_adv">Advantages:</span>
+                    <ul data-key="list_blend_adv">
+                        <li>Flexibility & Personalization.</li>
+                        <li>Improved student engagement via variety.</li>
+                        <li>Cost-effective relative to pure classroom.</li>
+                    </ul>
+                    <span class="step-title" style="color:var(--btn-red);" data-key="st_dis">Disadvantages:</span>
+                    <ul data-key="list_blend_dis">
+                        <li>Technical issues & Access to technology.</li>
+                        <li>Requires additional instructor training.</li>
+                        <li>Limited access for some students.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary><strong data-key="st_webquest">WebQuest:</strong> <span data-key="st_webquest_desc">Inquiry-based activity using internet resources...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="st_desc_title">Description:</span>
+                    <p data-key="desc_web">An inquiry-oriented lesson format in which most or all the information that learners work with comes from the web.</p>
+                    <span class="step-title" data-key="st_steps_title">Implementation Steps:</span>
+                    <ul data-key="list_web_steps">
+                        <li>Define the topic and the specific task/challenge.</li>
+                        <li>Curate a list of reliable web resources for students.</li>
+                        <li>Create a process guide with clear roles/steps.</li>
+                        <li>Students synthesize information and present findings.</li>
+                    </ul>
+                    <span class="step-title" data-key="st_adv">Advantages:</span>
+                    <ul data-key="list_web_adv">
+                        <li>Promotes student-centered & collaborative learning.</li>
+                        <li>Enhances critical thinking & analysis.</li>
+                        <li>Increases engagement via interactivity.</li>
+                    </ul>
+                    <span class="step-title" style="color:var(--btn-red);" data-key="st_dis">Disadvantages:</span>
+                    <ul data-key="list_web_dis">
+                        <li>Technology/Connectivity issues.</li>
+                        <li>Time-consuming research process.</li>
+                        <li>Requires very clear instructions.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary><strong data-key="st_flipped">Flipped Classroom:</strong> <span data-key="st_flipped_desc">Watch content at home, do activities in class...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="st_desc_title">Description:</span>
+                    <p data-key="desc_flip">A strategy that reverses the traditional learning environment by delivering instructional content, often online, outside of the classroom.</p>
+                    <span class="step-title" data-key="st_steps_title">Implementation Steps:</span>
+                    <ul data-key="list_flip_steps">
+                        <li>Record lectures or select video content for home viewing.</li>
+                        <li>Share content with students to watch before class.</li>
+                        <li>Use class time for problem-solving and active discussion.</li>
+                        <li>Provide immediate guidance during practice.</li>
+                    </ul>
+                    <span class="step-title" data-key="st_adv">Advantages:</span>
+                    <ul data-key="list_flip_adv">
+                        <li>Increased engagement during class time.</li>
+                        <li>Personalized learning pace at home.</li>
+                        <li>More teacher-student interaction during practice.</li>
+                    </ul>
+                    <span class="step-title" style="color:var(--btn-red);" data-key="st_dis">Disadvantages:</span>
+                    <ul data-key="list_flip_dis">
+                        <li>Relies heavily on technology access at home.</li>
+                        <li>Time-consuming preparation for teachers.</li>
+                        <li>Potential confusion for students new to the model.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary><strong data-key="st_diff">Differentiated Instruction:</strong> <span data-key="st_diff_desc">Tailoring instruction to diverse needs...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="st_desc_title">Description:</span>
+                    <p data-key="desc_diff">Tailoring instruction to meet individual needs by differentiating content, process, products, or the learning environment.</p>
+                    <span class="step-title" data-key="st_steps_title">Implementation Steps:</span>
+                    <ul data-key="list_diff_steps">
+                        <li>Assess students' readiness, interests, and learning profiles.</li>
+                        <li>Modify content (what is learned) or process (how it is learned).</li>
+                        <li>Provide different options for final product (assessment).</li>
+                        <li>Use flexible grouping strategies.</li>
+                    </ul>
+                    <span class="step-title" data-key="st_adv">Advantages:</span>
+                    <ul data-key="list_diff_adv">
+                        <li>Increases engagement by meeting individual needs.</li>
+                        <li>Promotes inclusive classrooms.</li>
+                        <li>Supports personalized learning paths.</li>
+                    </ul>
+                    <span class="step-title" style="color:var(--btn-red);" data-key="st_dis">Disadvantages:</span>
+                    <ul data-key="list_diff_dis">
+                        <li>Extremely time-consuming to design.</li>
+                        <li>Requires extensive planning.</li>
+                        <li>Assessment can be complex.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary><strong data-key="st_prog">Programmed Instruction:</strong> <span data-key="st_prog_desc">Self-paced linear sequential learning...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="st_desc_title">Description:</span>
+                    <p data-key="desc_prog">A method of presenting new subject matter to students in a graded sequence of controlled steps.</p>
+                    <span class="step-title" data-key="st_steps_title">Implementation Steps:</span>
+                    <ul data-key="list_prog_steps">
+                        <li>Break down content into small, manageable frames.</li>
+                        <li>Arrange frames in a logical, linear sequence.</li>
+                        <li>Require student response at each step.</li>
+                        <li>Provide immediate feedback/reinforcement.</li>
+                    </ul>
+                    <span class="step-title" data-key="st_adv">Advantages:</span>
+                    <ul data-key="list_prog_adv">
+                        <li>Self-paced & Consistent instruction.</li>
+                        <li>Immediate feedback on progress.</li>
+                        <li>Easy to monitor student progress.</li>
+                    </ul>
+                    <span class="step-title" style="color:var(--btn-red);" data-key="st_dis">Disadvantages:</span>
+                    <ul data-key="list_prog_dis">
+                        <li>Limited interactivity & human contact.</li>
+                        <li>Can be repetitive/boring.</li>
+                        <li>Not suitable for complex/nuanced topics.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details>
+                <summary><strong data-key="st_create">Creative Thinking Strategies:</strong> <span data-key="st_create_desc">Generating innovative ideas...</span></summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="st_desc_title">Description:</span>
+                    <p data-key="desc_create">Various methods and techniques used to help individuals generate and develop new and innovative ideas beyond standard solutions.</p>
+                    <span class="step-title" data-key="st_steps_title">Implementation Steps:</span>
+                    <ul data-key="list_create_steps">
+                        <li>Choose a technique (e.g., Mind Mapping).</li>
+                        <li>Define the central problem or theme.</li>
+                        <li>Branch out ideas or connect unrelated concepts.</li>
+                        <li>Refine and develop the most promising ideas.</li>
+                    </ul>
+                    <span class="step-title" data-key="st_meth">Common Methods:</span>
+                    <ul data-key="list_create_meth">
+                        <li><strong>Brainstorming:</strong> Rapid idea generation without judgment.</li>
+                        <li><strong>Mind Mapping:</strong> Visual representation of connections.</li>
+                        <li><strong>Forced Connections:</strong> Connecting unrelated concepts.</li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <!-- SECTION 5: Assessment -->
+    <section id="section-assessment" class="section-card">
+        <div class="strategy-bar">
+            <h2 data-key="s4_title">Assessment Systems</h2>
+            <select class="strategy-select" onchange="updateView('s4', this.value)">
+                <option value="lecture" data-key="opt_explain">Explanation</option>
+                <option value="matrix" data-key="opt_matrix">Comparison Matrix</option>
+            </select>
+        </div>
+
+        <div class="instruction-panel">
+            <div class="teacher-note" id="s4-teacher">
+                <!-- Injected via JS -->
+            </div>
+            <div class="student-note" id="s4-student">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+
+        <div class="content-body" id="s4-content">
+            <h3 data-key="s4_h3_1">A. Formative Assessment</h3>
+            <p data-key="s4_p1">Purpose: Review performance and provide feedback to correct the path.</p>
+            <details>
+                <summary data-key="ass_quiz">Short Quizzes</summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Process:</span>
+                    <span data-key="step_formative_detail">Administer short, frequent questions -> Review student answers immediately -> Provide specific feedback on errors -> Allow student to correct their understanding before major exams.</span>
+                </div>
+            </details>
+            <details>
+                <summary data-key="ass_mid">Midterm Written Exams</summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Process:</span>
+                    <span data-key="step_formative_detail">Administer short, frequent questions -> Review student answers immediately -> Provide specific feedback on errors -> Allow student to correct their understanding before major exams.</span>
+                </div>
+            </details>
+            <details>
+                <summary data-key="ass_pres">Presentations</summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Process:</span>
+                    <span data-key="step_formative_detail">Administer short, frequent questions -> Review student answers immediately -> Provide specific feedback on errors -> Allow student to correct their understanding before major exams.</span>
+                </div>
+            </details>
+            <details>
+                <summary data-key="ass_rep">Reports & Research</summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Process:</span>
+                    <span data-key="step_formative_detail">Administer short, frequent questions -> Review student answers immediately -> Provide specific feedback on errors -> Allow student to correct their understanding before major exams.</span>
+                </div>
+            </details>
+
+            <h3 data-key="s4_h3_2">B. Summative Assessment</h3>
+            <p data-key="s4_p2">Purpose: Evaluate performance into a final grade measuring outcomes.</p>
+            <details>
+                <summary data-key="ass_final_w">Final Written Exams</summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Process:</span>
+                    <span data-key="step_summative_detail">Administer comprehensive exam at end of term -> Evaluate performance based on strict criteria -> Translate performance into a numerical grade -> Measure achievement of learning outcomes.</span>
+                </div>
+            </details>
+            <details>
+                <summary data-key="ass_final_o">Final Oral Exams</summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Process:</span>
+                    <span data-key="step_summative_detail">Administer comprehensive exam at end of term -> Evaluate performance based on strict criteria -> Translate performance into a numerical grade -> Measure achievement of learning outcomes.</span>
+                </div>
+            </details>
+            <details>
+                <summary data-key="ass_proj">Project Submittals</summary>
+                <div class="step-content">
+                    <span class="step-title" data-key="step_title">Detailed Process:</span>
+                    <span data-key="step_summative_detail">Administer comprehensive exam at end of term -> Evaluate performance based on strict criteria -> Translate performance into a numerical grade -> Measure achievement of learning outcomes.</span>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <!-- SECTION 6: Quiz & Final Test -->
+    <section id="section-quiz" class="section-card">
+        <h2 data-key="q_title">Interactive Review & Final Exam</h2>
+        
+        <div class="mcq-container">
+            <!-- Q1 -->
+            <div class="mcq-card">
+                <strong data-key="q1_text">1. Which learning style prefers diagrams and maps?</strong>
+                <div class="mcq-options">
+                    <button class="btn-opt" onclick="checkAnswer(this, false)" data-key="q_opt_auditory">Auditory</button>
+                    <button class="btn-opt" onclick="checkAnswer(this, true)" data-key="q_opt_visual">Visual</button>
+                    <button class="btn-opt" onclick="checkAnswer(this, false)" data-key="q_opt_kinesthetic">Kinesthetic</button>
+                </div>
+            </div>
+
+            <!-- Q2 -->
+            <div class="mcq-card">
+                <strong data-key="q2_text">2. Brainstorming focuses primarily on:</strong>
+                <div class="mcq-options">
+                    <button class="btn-opt" onclick="checkAnswer(this, false)" data-key="q2_opt_logic">Logical Restrictions</button>
+                    <button class="btn-opt" onclick="checkAnswer(this, true)" data-key="q2_opt_creative">Creative Idea Generation</button>
+                    <button class="btn-opt" onclick="checkAnswer(this, false)" data-key="q2_opt_grading">Final Grading</button>
+                </div>
+            </div>
+            
+            <!-- Q3 -->
+            <div class="mcq-card">
+                <strong data-key="q3_text">3. Formative assessment aims to:</strong>
+                <div class="mcq-options">
+                    <button class="btn-opt" onclick="checkAnswer(this, true)" data-key="q3_opt_feedback">Provide Feedback & Correct Path</button>
+                    <button class="btn-opt" onclick="checkAnswer(this, false)" data-key="q3_opt_final">Give Final Score</button>
+                </div>
+            </div>
+
+            <!-- Q4 (New) -->
+            <div class="mcq-card">
+                <strong data-key="q4_text">4. Which strategy is best for developing team management skills?</strong>
+                <div class="mcq-options">
+                    <button class="btn-opt" onclick="checkAnswer(this, false)" data-key="q4_opt_lecture">Interactive Lecture</button>
+                    <button class="btn-opt" onclick="checkAnswer(this, true)" data-key="q4_opt_collab">Collaborative Projects</button>
+                    <button class="btn-opt" onclick="checkAnswer(this, false)" data-key="q4_opt_online">Self-Learning</button>
+                </div>
+            </div>
+
+             <!-- Q5 (New) -->
+             <div class="mcq-card">
+                <strong data-key="q5_text">5. Problem-Based Learning starts with:</strong>
+                <div class="mcq-options">
+                    <button class="btn-opt" onclick="checkAnswer(this, false)" data-key="q5_opt_solution">Providing the Solution</button>
+                    <button class="btn-opt" onclick="checkAnswer(this, true)" data-key="q5_opt_problem">Analyzing the Problem</button>
+                    <button class="btn-opt" onclick="checkAnswer(this, false)" data-key="q5_opt_exam">Taking an Exam</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="final-exam-card">
+            <h3 data-key="final_exam_title">Final Exam Simulation</h3>
+            <p data-key="final_exam_desc">The final written exam measures Knowledge, Intellectual Skills, and Professional Skills using short essay questions and problem-solving tasks.</p>
+            
+            <div class="mcq-container">
+                 <div class="mcq-card" style="border-left: 4px solid var(--btn-blue);">
+                    <strong data-key="final_q1">Final Q1: Differentiate between Teaching and Learning.</strong>
+                    <div class="mcq-options">
+                        <button class="btn-opt" onclick="checkAnswer(this, true)" data-key="final_a1">Teaching is facilitation; Learning is self-effort.</button>
+                        <button class="btn-opt" onclick="checkAnswer(this, false)" data-key="final_a2">They are exactly the same.</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <h3 data-key="reflect_title">Reflection</h3>
+        <p data-key="reflect_prompt">Describe briefly how "Problem-Based Learning" benefits the student.</p>
+        <textarea id="reflectionInput"></textarea>
+        <div>
+            <button class="action-btn" onclick="toggleModelAnswer()" data-key="btn_show">Show Model Answer</button>
+            <button class="action-btn cancel-btn" onclick="clearReflection()" data-key="btn_clear">Clear</button>
+        </div>
+        
+        <div id="modelAnswer" class="model-answer-box">
+            <strong data-key="ans_label">Model Answer:</strong> 
+            <span data-key="ans_text">It develops the student's ability to research, analyze, evaluate, and compare proposed solutions by starting with problem analysis and deducing causes.</span>
+        </div>
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer id="footer-text">
+    All rights are reserved to Dr. Mazen Badawy – Doctorate of English Teaching & Testing
+</footer>
+
+<script>
+    // --- BILINGUAL DATA OBJECT ---
+    const contentData = {
+        en: {
+            app_title: "H.I.E.T Strategies",
+            toc_title: "Table of Contents",
+            nav_intro: "Introduction", nav_vark: "VARK Styles", nav_strat: "Strategies", nav_assess: "Assessment", nav_quiz: "Quiz", nav_extra: "Extra Materials", nav_obj: "Objectives",
+            
+            // Objectives
+            obj_title: "Learning Objectives",
+            obj_intro: "By the end of this session, participants will be able to:",
+            obj_l1: "Define the core concepts of Teaching, Learning, and Assessment strategies.",
+            obj_l2: "Identify different learning styles based on the VARK model.",
+            obj_l3: "Differentiate between Lecturer-Centered, Student-Centered, and Cooperative learning strategies.",
+            obj_l4: "Analyze appropriate teaching strategies for engineering education contexts.",
+            obj_l5: "Compare the purposes and methods of Formative vs. Summative assessment.",
+
+            // Sidebar
+            s1_sub1: "Teaching vs Learning", s2_sub1: "Visual, Auditory, Read, Kinesthetic",
+            s3_sub1: "Lecturer-Centered", s3_sub2: "Student-Centered", s3_sub3: "Cooperative Learning",
+            s4_sub1: "Formative vs Summative",
+
+            // Download Translations
+            dl_title: "Download Materials", dl_pdf: "📄 PDF File (00.pdf)", dl_txt: "📝 Text File (00.txt)",
+
+            // Section 1: Intro + NEW DIAGRAM TEXT
+            s1_title: "Introduction & Concepts",
+            s1_p1: "Quality assurance in higher education requires precise definition of teaching, learning, and assessment strategies linked to learning outcomes (NARS 2018). These strategies are crucial for program success.",
+            s1_h3_concepts: "General Concepts",
+            
+            vis_bloom_title: "1. Bloom's Taxonomy Levels",
+            bl_create: "Create", bl_create_v: "Design, Assemble, Construct, Conjecture",
+            bl_eval: "Evaluate", bl_eval_v: "Judge, Appraise, Argue, Defend",
+            bl_analyze: "Analyze", bl_analyze_v: "Differentiate, Organize, Relate, Compare",
+            bl_apply: "Apply", bl_apply_v: "Calculate, Solve, Interpret, Demonstrate",
+            bl_understand: "Understand", bl_understand_v: "Describe, Explain, Identify, Locate",
+            bl_remember: "Remember", bl_remember_v: "List, Define, Memorize, Repeat",
+
+            vis_circle_title: "2. Strategies vs. Methods",
+            c_strat: "Strategies",
+            c_st1: "Cooperative Learning", c_st2: "Problem Solving", c_st3: "Discovery", c_st4: "Experiential",
+            c_meth: "Methods",
+            c_meth_list: "Lecture<br>Discussion<br>Demonstration<br>Storytelling",
+
+            term_teaching: "Teaching:", def_teaching: "An intentional, planned process by faculty to help students achieve learning outcomes (knowledge, skills, behaviors).",
+            term_learning: "Learning:", def_learning: "Self-activity by the student (supervised or not) to acquire knowledge, skill, or behavior change. It is the result of practice and experience. Distinction: Teaching is facilitation by a qualified person. Learning is the student's own effort to acquire knowledge.",
+            s1_summary: "Distinction: Teaching is facilitation by a qualified person. Learning is the student's own effort to acquire knowledge.",
+            opt_lecture: "Interactive Lecture (Standard)", opt_self: "Online Self-Learning",
+
+            // Section 2
+            s2_title: "Learning Styles (VARK)",
+            s2_intro: "Active learning transforms the student from a passive receiver to an active participant. People remember 10% of what they read, but 90% of what they do.",
+            s2_header: "The VARK Model",
+            vark_v: "Visual:", vark_v_desc: "Learn via images, maps, charts, diagrams. High imagination.",
+            vark_a: "Auditory:", vark_a_desc: "Learn via sound, lectures, discussions, and conversation.",
+            vark_r: "Read/Write:", vark_r_desc: "Most common. Rely on continuous reading, writing, and rewriting notes.",
+            vark_k: "Kinesthetic:", vark_k_desc: "Learn via movement, practical training, experiments, and trial.",
+            opt_pres: "Presentations (Visual)", opt_exp: "Experiential Learning (Kinesthetic)",
+
+            // Section 3
+            s3_title: "Teaching Strategies",
+            s3_intro: "H.I.E.T adopts 'Student-Centered' strategies mostly, with some 'Lecturer-Centered' methods where necessary.",
+            s3_h3_1: "1. Lecturer-Centered Strategies",
+            st_interactive: "Interactive Lecture:", st_interactive_desc: "Involves students by asking for opinions and observations.",
+            st_field: "Guided Field Trips:", st_field_desc: "Moving class to a real site (factory).",
+            s3_h3_2: "2. Student-Centered Strategies",
+            st_online: "Online Self-Learning:", st_online_desc: "Students study assigned material alone.",
+            st_debate: "Debate & Discussion:", st_debate_desc: "Verbal dialogue management.",
+            st_report: "Reporting/Research:", st_report_desc: "Writing reports on topics.",
+            st_pbl: "Problem-Based Learning:", st_pbl_desc: "Analyzing and solving a posed problem.",
+            st_exp: "Experiential Learning:", st_exp_desc: "Performing lab/field experiments.",
+            s3_h3_3: "3. Cooperative Learning",
+            st_brain: "Brainstorming:", st_brain_desc: "Generating creative ideas without restriction.",
+            st_collab: "Collaborative Projects:", st_collab_desc: "Groups work on tasks.",
+            st_pres: "Presentations:", st_pres_desc: "Using tools to present facts.",
+            opt_list: "Full List (Lecture)", opt_brain: "Brainstorming (Cooperative)", opt_proj: "Collaborative Projects", opt_pbl: "Problem Based Learning",
+            
+            // Steps for Strategies (Collapsible)
+            step_title: "Detailed Implementation Steps:",
+            list_interactive: "<li>Introduce the topic with a clear overview.</li><li>Ask provocative questions to elicit opinions/predictions.</li><li>Ensure every student participates at least once.</li><li>Monitor engagement and adjust pace accordingly.</li>",
+            list_field: "<li>Select a site (e.g., factory) relevant to the syllabus.</li><li>Brief students on safety and learning objectives before travel.</li><li>Guide students to observe real-world applications of theory.</li><li>Conduct a debriefing session to match practice with theory.</li>",
+            list_online: "<li>Assign specific reading or digital material.</li><li>Students study independently before the class.</li><li>Use class time solely for discussion and answering deep questions.</li><li>Focus on developing analysis and self-confidence.</li>",
+            list_debate: "<li>Pose a controversial or complex question.</li><li>Students prepare arguments for the next session.</li><li>Manage a structured verbal dialogue/debate in class.</li><li>Encourage expression of diverse opinions and confidence.</li>",
+            list_report: "<li>Define a specific research topic related to the course.</li><li>Students conduct research and write a structured report.</li><li>Focus on professional writing, image usage, and analysis.</li><li>Evaluate based on depth of research and clarity.</li>",
+            list_pbl: "<li>Present a real-world problem to the students.</li><li>Students analyze the problem and deduce root causes.</li><li>Students search for and propose multiple solutions.</li><li>Evaluate and compare solutions to find the best fit.</li>",
+            list_exp: "<li>Set up a lab or field experiment.</li><li>Students perform the task and monitor inputs.</li><li>Students record outputs and observe changes.</li><li>Deduce relationships and conclusions from the data.</li>",
+            list_brain: "<li>Introduce a problem or topic to the group.</li><li>Encourage rapid generation of ideas without judgment.</li><li>Focus on quantity and idea fluency over logic initially.</li><li>Review and refine ideas in a secondary phase.</li>",
+            list_collab: "<li>Form small, diverse groups of students.</li><li>Assign a complex task or project.</li><li>Students organize roles and manage their team.</li><li>Evaluate both the final product and team dynamics.</li>",
+            list_pres: "<li>Students prepare electronic slides (images, video).</li><li>Students present facts and concepts to peers.</li><li>Allows for self-paced learning and review.</li><li>Enhances communication and technical skills.</li>",
+
+            // NEW: Extra Materials
+            s_extra_title: "Extra Materials (Engineering Focus)",
+            s_extra_intro: "Additional advanced strategies suitable for engineering education, emphasizing digital integration and practical application.",
+            st_adv: "Advantages:",
+            st_dis: "Disadvantages:",
+            st_meth: "Common Methods:",
+            st_desc_title: "Description:", st_steps_title: "Implementation Steps:",
+            
+            st_demo: "Demonstration Strategy:", st_demo_desc: "Instructor demonstrates a skill/process to students.",
+            desc_demo: "A teaching method in which the instructor actively demonstrates a skill or process to students to provide a visual model of execution, enhancing understanding through observation.",
+            list_demo_steps: "<li>Explain the purpose and theory behind the skill.</li><li>Demonstrate the skill slowly and clearly step-by-step.</li><li>Allow students to practice under supervision.</li><li>Provide immediate feedback and correct errors.</li>",
+            list_demo_adv: "<li>Active learning & Visual learning.</li><li>Personalized feedback on errors.</li><li>Enhanced retention of practical skills.</li>",
+            list_demo_dis: "<li>Limited scope (can't demo everything).</li><li>Time-consuming for individual support.</li><li>Limited student engagement if topic is dry.</li>",
+            
+            st_blend: "Blended Learning:", st_blend_desc: "Combines traditional classroom with digital/online learning.",
+            desc_blend: "An approach that mixes traditional face-to-face classroom methods with online digital media and tasks, giving students some control over time, place, path, or pace.",
+            list_blend_steps: "<li>Analyze the curriculum to decide which parts are best online vs. offline.</li><li>Select or create digital materials (videos, quizzes).</li><li>Design face-to-face activities that deepen online learning.</li><li>Integrate assessments that cover both modes.</li>",
+            list_blend_adv: "<li>Flexibility & Personalization.</li><li>Improved student engagement via variety.</li><li>Cost-effective relative to pure classroom.</li>",
+            list_blend_dis: "<li>Technical issues & Access to technology.</li><li>Requires additional instructor training.</li><li>Limited access for some students.</li>",
+            
+            st_webquest: "WebQuest:", st_webquest_desc: "Inquiry-based activity using internet resources for collaborative learning.",
+            desc_web: "An inquiry-oriented lesson format in which most or all the information that learners work with comes from the web.",
+            list_web_steps: "<li>Define the topic and the specific task/challenge.</li><li>Curate a list of reliable web resources for students.</li><li>Create a process guide with clear roles/steps.</li><li>Students synthesize information and present findings.</li>",
+            list_web_adv: "<li>Promotes student-centered & collaborative learning.</li><li>Enhances critical thinking & analysis.</li><li>Increases engagement via interactivity.</li>",
+            list_web_dis: "<li>Technology/Connectivity issues.</li><li>Time-consuming research process.</li><li>Requires very clear instructions.</li>",
+            
+            st_flipped: "Flipped Classroom:", st_flipped_desc: "Watch content at home, do active learning/problem solving in class.",
+            desc_flip: "A strategy that reverses the traditional learning environment by delivering instructional content, often online, outside of the classroom.",
+            list_flip_steps: "<li>Record lectures or select video content for home viewing.</li><li>Share content with students to watch before class.</li><li>Use class time for problem-solving and active discussion.</li><li>Provide immediate guidance during practice.</li>",
+            list_flip_adv: "<li>Increased engagement during class time.</li><li>Personalized learning pace at home.</li><li>More teacher-student interaction during practice.</li>",
+            list_flip_dis: "<li>Relies heavily on technology access at home.</li><li>Time-consuming preparation for teachers.</li><li>Potential confusion for students new to the model.</li>",
+            
+            st_diff: "Differentiated Instruction:", st_diff_desc: "Tailoring instruction to meet diverse learning needs and abilities.",
+            desc_diff: "Tailoring instruction to meet individual needs by differentiating content, process, products, or the learning environment.",
+            list_diff_steps: "<li>Assess students' readiness, interests, and learning profiles.</li><li>Modify content (what is learned) or process (how it is learned).</li><li>Provide different options for final product (assessment).</li><li>Use flexible grouping strategies.</li>",
+            list_diff_adv: "<li>Increases engagement by meeting individual needs.</li><li>Promotes inclusive classrooms.</li><li>Supports personalized learning paths.</li>",
+            list_diff_dis: "<li>Extremely time-consuming to design.</li><li>Requires extensive planning.</li><li>Assessment can be complex.</li>",
+            
+            st_prog: "Programmed Instruction:", st_prog_desc: "Self-paced linear sequential learning material.",
+            desc_prog: "A method of presenting new subject matter to students in a graded sequence of controlled steps.",
+            list_prog_steps: "<li>Break down content into small, manageable frames.</li><li>Arrange frames in a logical, linear sequence.</li><li>Require student response at each step.</li><li>Provide immediate feedback/reinforcement.</li>",
+            list_prog_adv: "<li>Self-paced & Consistent instruction.</li><li>Immediate feedback on progress.</li><li>Easy to monitor student progress.</li>",
+            list_prog_dis: "<li>Limited interactivity & human contact.</li><li>Can be repetitive/boring.</li><li>Not suitable for complex/nuanced topics.</li>",
+            
+            st_create: "Creative Thinking Strategies:", st_create_desc: "Methods to generate and develop new innovative ideas.",
+            desc_create: "Various methods and techniques used to help individuals generate and develop new and innovative ideas beyond standard solutions.",
+            list_create_steps: "<li>Choose a technique (e.g., Mind Mapping).</li><li>Define the central problem or theme.</li><li>Branch out ideas or connect unrelated concepts.</li><li>Refine and develop the most promising ideas.</li>",
+            list_create_meth: "<li><strong>Brainstorming:</strong> Rapid idea generation without judgment.</li><li><strong>Mind Mapping:</strong> Visual representation of connections.</li><li><strong>Forced Connections:</strong> Connecting unrelated concepts.</li>",
+
+
+            // Section 4
+            s4_title: "Assessment Systems",
+            s4_h3_1: "A. Formative Assessment", s4_p1: "Purpose: Review performance and provide feedback to correct the path.",
+            ass_quiz: "Short Quizzes", ass_mid: "Midterm Written Exams", ass_pres: "Presentations", ass_rep: "Reports & Research", ass_assign: "Assignments", ass_lab: "Lab/Field Experiments",
+            s4_h3_2: "B. Summative Assessment", s4_p2: "Purpose: Evaluate performance into a final grade measuring outcomes.",
+            ass_final_w: "Final Written Exams", ass_final_o: "Final Oral Exams", ass_final_p: "Final Practical Exams", ass_proj: "Project Submittals",
+            opt_explain: "Explanation", opt_matrix: "Comparison Matrix",
+            step_formative_detail: "Administer short, frequent questions -> Review student answers immediately -> Provide specific feedback on errors -> Allow student to correct their understanding before major exams.",
+            step_summative_detail: "Administer comprehensive exam at end of term -> Evaluate performance based on strict criteria -> Translate performance into a numerical grade -> Measure achievement of learning outcomes.",
+
+            // Quiz & Final Exam
+            q_title: "Interactive Review & Final Exam",
+            q1_text: "1. Which learning style prefers diagrams and maps?",
+            q_opt_auditory: "Auditory", q_opt_visual: "Visual", q_opt_kinesthetic: "Kinesthetic",
+            q2_text: "2. Brainstorming focuses primarily on:",
+            q2_opt_logic: "Logical Restrictions", q2_opt_creative: "Creative Idea Generation", q2_opt_grading: "Final Grading",
+            q3_text: "3. Formative assessment aims to:",
+            q3_opt_feedback: "Provide Feedback & Correct Path", q3_opt_final: "Give Final Score",
+            q4_text: "4. Which strategy is best for developing team management skills?",
+            q4_opt_lecture: "Interactive Lecture", q4_opt_collab: "Collaborative Projects", q4_opt_online: "Self-Learning",
+            q5_text: "5. Problem-Based Learning starts with:",
+            q5_opt_solution: "Providing the Solution", q5_opt_problem: "Analyzing the Problem", q5_opt_exam: "Taking an Exam",
+            
+            final_exam_title: "Final Exam Simulation",
+            final_exam_desc: "The final written exam measures Knowledge, Intellectual Skills, and Professional Skills using short essay questions and problem-solving tasks.",
+            final_q1: "Final Q1: Differentiate between Teaching and Learning.",
+            final_a1: "Teaching is facilitation; Learning is self-effort.", final_a2: "They are exactly the same.",
+            
+            reflect_title: "Reflection", reflect_prompt: "Describe briefly how 'Problem-Based Learning' benefits the student.",
+            btn_show: "Show Model Answer", btn_clear: "Clear",
+            ans_label: "Model Answer:", ans_text: "It develops the student's ability to research, analyze, evaluate, and compare proposed solutions.",
+            
+            footer_text: "All rights are reserved to Dr. Mazen Badawy – Doctorate of English Teaching & Testing"
+        },
+        ar: {
+            app_title: "استراتيجيات المعهد العالي (HIET)",
+            toc_title: "جدول المحتويات",
+            nav_intro: "المقدمة", nav_vark: "أنماط التعلم", nav_strat: "الاستراتيجيات", nav_assess: "التقويم", nav_quiz: "اختبار", nav_extra: "مواد إضافية", nav_obj: "الأهداف",
+            
+            // Objectives
+            obj_title: "الأهداف التعليمية",
+            obj_intro: "بنهاية هذه الجلسة، سيكون المشاركون قادرين على:",
+            obj_l1: "تعريف المفاهيم الجوهرية لاستراتيجيات التدريس والتعلم والتقويم.",
+            obj_l2: "تحديد أنماط التعلم المختلفة بناءً على نموذج VARK.",
+            obj_l3: "التمييز بين استراتيجيات التعلم المتمركزة حول المحاضر، والمتمركزة حول الطالب، والتعلم التعاوني.",
+            obj_l4: "تحليل استراتيجيات التدريس المناسبة لسياقات التعليم الهندسي.",
+            obj_l5: "مقارنة أغراض وطرق التقويم التكويني مقابل التقويم التجميعي.",
+
+            s1_sub1: "التعليم مقابل التعلم", s2_sub1: "بصري، سمعي، قراءة، حركي",
+            s3_sub1: "المحاضر محور العملية", s3_sub2: "الطالب محور العملية", s3_sub3: "التعلم التعاوني",
+            s4_sub1: "التكويني مقابل التجميعي",
+
+            dl_title: "تحميل المواد", dl_pdf: "📄 ملف PDF (00.pdf)", dl_txt: "📝 ملف نصي (00.txt)",
+
+            s1_title: "مقدمة ومفاهيم",
+            s1_p1: "تتطلب عمليات ضمان الجودة تحديداً دقيقاً لاستراتيجيات التعليم والتعلم وربطها بنواتج التعلم (NARS 2018). هذه الاستراتيجيات ضرورية لنجاح البرنامج.",
+            s1_h3_concepts: "مفاهيم عامة",
+
+            // VISUALS
+            vis_bloom_title: "١. مستويات تصنيف بلوم",
+            bl_create: "الابتكار", bl_create_v: "يصمم، يركب، يبني، يقترح",
+            bl_eval: "التقويم", bl_eval_v: "يحكم، يقدر، يجادل، يدافع",
+            bl_analyze: "التحليل", bl_analyze_v: "يميز، ينظم، يربط، يقارن",
+            bl_apply: "التطبيق", bl_apply_v: "يحسب، يحل، يفسر، يوضح",
+            bl_understand: "الفهم", bl_understand_v: "يصف، يشرح، يحدد، يوقع",
+            bl_remember: "التذكر", bl_remember_v: "يعدد، يعرف، يحفظ، يكرر",
+
+            vis_circle_title: "٢. الاستراتيجيات مقابل الطرق",
+            c_strat: "استراتيجيات",
+            c_st1: "التعلم التعاوني", c_st2: "حل المشكلات", c_st3: "الاكتشاف", c_st4: "التعلم التجريبي",
+            c_meth: "طرق",
+            c_meth_list: "محاضرة<br>مناقشة<br>بيان عملي<br>قصة",
+
+            term_teaching: "التدريس (التعليم):", def_teaching: "عملية مقصودة ومخططة من هيئة التدريس لمساعدة الطالب على تحقيق نواتج التعلم (معارف، مهارات، سلوكيات).",
+            term_learning: "التعلم:", def_learning: "نشاط ذاتي للطالب (بإشراف أو بدون) لاكتساب معرفة أو مهارة أو تغيير سلوك. وهو نتاج الممارسة والخبرة.",
+            s1_summary: "الفرق: التعليم نشاط يقوم به شخص مؤهل لتسهيل الاكتساب. التعلم هو الجهود الذاتية للطالب لاكتساب ما يسعى إليه.",
+            opt_lecture: "المحاضرة التفاعلية (أساسي)", opt_self: "التعلم الإلكتروني الذاتي",
+
+            s2_title: "أنماط التعلم (VARK)",
+            s2_intro: "التعلم النشط يحول الطالب من متلقي سلبي إلى مشارك فعال. يتذكر الناس 10% مما يقرأونه، و 90% مما يعملونه.",
+            s2_header: "نموذج VARK",
+            vark_v: "بصري (Visual):", vark_v_desc: "التعلم عبر الصور، الخرائط، الرسوم البيانية، والفيديوهات. خيال واسع.",
+            vark_a: "سمعي (Auditory):", vark_a_desc: "التعلم عبر الصوت، المحاضرات، المناقشات، والمحادثات التعليمية.",
+            vark_r: "قراءة/كتابة (Read/Write):", vark_r_desc: "الأكثر شيوعاً. الاعتماد على القراءة المستمرة وكتابة وتدوين الملاحظات.",
+            vark_k: "حركي (Kinesthetic):", vark_k_desc: "التعلم عبر الحركة، الواقع، التدريب العملي، التجارب، والمحاولة.",
+            opt_pres: "العروض التقديمية (بصري)", opt_exp: "التعلم التجريبي (حركي)",
+
+            s3_title: "استراتيجيات التعليم والتعلم",
+            s3_intro: "يتبنى المعهد استراتيجيات 'الطالب محور العملية' في الغالب، مع بعض استراتيجيات 'المحاضر محور العملية' عند الضرورة.",
+            s3_h3_1: "1. استراتيجيات المحاضر محور العملية التعليمية",
+            st_interactive: "المحاضرة التفاعلية:", st_interactive_desc: "اشراك الطالب في العملية عبر إبداء الرأي.",
+            st_field: "الزيارات الميدانية:", st_field_desc: "نقل الدرس لموقع حقيقي.",
+            s3_h3_2: "2. استراتيجيات الطالب محور العملية التعليمية (التفاعلي)",
+            st_online: "التعلم الإلكتروني الذاتي:", st_online_desc: "يدرس الطالب مادة محددة ذاتياً.",
+            st_debate: "المناقشة والحوار:", st_debate_desc: "إدارة حوار شفوي.",
+            st_report: "كتابة التقارير/الأبحاث:", st_report_desc: "كتابة تقرير حول موضوع.",
+            st_pbl: "حل المشكلات (PBL):", st_pbl_desc: "طرح مشكلة للتحليل والبحث عن حلول.",
+            st_exp: "التعلم التجريبي:", st_exp_desc: "عمل تجارب معملية/حقلية.",
+            s3_h3_3: "3. التعلم التعاوني",
+            st_brain: "العصف الذهني:", st_brain_desc: "طرح أفكار إبداعية دون تقيد.",
+            st_collab: "المشروعات الجماعية:", st_collab_desc: "مجموعات عمل لمهمة ما.",
+            st_pres: "العروض التقديمية:", st_pres_desc: "استخدام تقنيات لعرض الحقائق.",
+            opt_list: "القائمة الكاملة (محاضرة)", opt_brain: "العصف الذهني (تعاوني)", opt_proj: "المشروعات الجماعية", opt_pbl: "حل المشكلات",
+
+            // Steps for Strategies (Collapsible)
+            step_title: "خطوات التنفيذ التفصيلية:",
+            list_interactive: "<li>تقديم الموضوع بنظرة عامة واضحة.</li><li>طرح أسئلة مثيرة للتفكير لاستخراج آراء أو توقعات الطلاب.</li><li>التأكد من مشاركة كل طالب مرة واحدة على الأقل.</li><li>مراقبة التفاعل وضبط إيقاع المحاضرة.</li>",
+            list_field: "<li>تحديد موقع (مثل مصنع) ذي صلة بالمنهج.</li><li>توعية الطلاب بإجراءات السلامة وأهداف التعلم قبل الزيارة.</li><li>توجيه الطلاب لملاحظة التطبيقات الواقعية للنظرية.</li><li>إجراء جلسة مناقشة لمطابقة الممارسة مع النظرية.</li>",
+            list_online: "<li>تحديد مادة قراءة أو محتوى رقمي محدد.</li><li>يدرس الطلاب بشكل مستقل قبل المحاضرة.</li><li>استخدام وقت الفصل للمناقشة والإجابة على الأسئلة العميقة فقط.</li><li>التركيز على تنمية التحليل والثقة بالنفس.</li>",
+            list_debate: "<li>طرح سؤال جدلي أو معقد.</li><li>يجهز الطلاب الحجج والردود للجلسة القادمة.</li><li>إدارة حوار/مناظرة شفهية منظمة داخل الفصل.</li><li>تشجيع التعبير عن الآراء المختلفة والثقة.</li>",
+            list_report: "<li>تحديد موضوع بحثي محدد مرتبط بالمقرر.</li><li>يقوم الطلاب بإجراء البحث وكتابة تقرير منظم.</li><li>التركيز على الكتابة المهنية، استخدام الصور، والتحليل.</li><li>التقييم بناءً على عمق البحث والوضوح.</li>",
+            list_pbl: "<li>طرح مشكلة من العالم الواقعي على الطلاب.</li><li>يقوم الطلاب بتحليل المشكلة واستنتاج الأسباب الجذرية.</li><li>يبحث الطلاب ويقترحون حلولاً متعددة.</li><li>تقييم ومقارنة الحلول للوصول للأفضل.</li>",
+            list_exp: "<li>إعداد تجربة معملية أو حقلية.</li><li>يقوم الطلاب بتنفيذ المهمة ومراقبة المدخلات.</li><li>يسجل الطلاب المخرجات ويلاحظون التغيرات.</li><li>استنتاج العلاقات والنتائج من البيانات.</li>",
+            list_brain: "<li>طرح مشكلة أو موضوع على المجموعة.</li><li>تشجيع التوليد السريع للأفكار دون نقد أو حكم.</li><li>التركيز على الكم وسيولة الأفكار بدلاً من المنطق مبدئياً.</li><li>مراجعة وتنقيح الأفكار في مرحلة ثانية.</li>",
+            list_collab: "<li>تشكيل مجموعات صغيرة ومتنوعة من الطلاب.</li><li>تعيين مهمة أو مشروع معقد.</li><li>ينظم الطلاب الأدوار ويديرون فريقهم.</li><li>تقييم كل من المنتج النهائي وديناميكيات الفريق.</li>",
+            list_pres: "<li>يقوم الطلاب بإعداد شرائح إلكترونية (صور، فيديو).</li><li>يعرض الطلاب الحقائق والمفاهيم على أقرانهم.</li><li>يتيح التعلم الذاتي والمراجعة.</li><li>يعزز مهارات التواصل والمهارات التقنية.</li>",
+
+            // NEW: Extra Materials
+            s_extra_title: "مواد إضافية (تركيز هندسي)",
+            s_extra_intro: "استراتيجيات متقدمة إضافية تناسب التعليم الهندسي، مع التركيز على الدمج الرقمي والتطبيق العملي.",
+            st_adv: "المميزات:",
+            st_dis: "العيوب:",
+            st_meth: "أساليب شائعة:",
+            st_desc_title: "الوصف:", st_steps_title: "خطوات التنفيذ:",
+            
+            st_demo: "استراتيجية البيان العملي:", st_demo_desc: "يوضح المعلم مهارة أو عملية أمام الطلاب.",
+            desc_demo: "طريقة تدريس يقوم فيها المعلم بتوضيح مهارة أو عملية معينة أمام الطلاب لتقديم نموذج مرئي للأداء، مما يعزز الفهم من خلال الملاحظة.",
+            list_demo_steps: "<li>شرح الغرض والنظرية وراء المهارة.</li><li>توضيح المهارة ببطء ووضوح خطوة بخطوة.</li><li>السماح للطلاب بالممارسة تحت الإشراف.</li><li>تقديم تغذية راجعة فورية وتصحيح الأخطاء.</li>",
+            list_demo_adv: "<li>تعلم نشط وتعلم بصري.</li><li>تغذية راجعة شخصية حول الأخطاء.</li><li>تعزيز الاحتفاظ بالمهارات العملية.</li>",
+            list_demo_dis: "<li>نطاق محدود (لا يمكن عرض كل شيء).</li><li>تستغرق وقتاً طويلاً للدعم الفردي.</li><li>مشاركة محدودة للطلاب إذا كان الموضوع جافاً.</li>",
+            
+            st_blend: "التعلم المدمج:", st_blend_desc: "يجمع بين الفصل التقليدي والتعلم الرقمي/عبر الإنترنت.",
+            desc_blend: "نهج يمزج بين طرق الفصل التقليدية وجهاً لوجه مع المهام والوسائط الرقمية عبر الإنترنت، مما يمنح الطلاب بعض التحكم في الوقت، المكان، المسار، أو السرعة.",
+            list_blend_steps: "<li>تحليل المنهج لتحديد الأجزاء الأفضل عبر الإنترنت مقابل وجهاً لوجه.</li><li>اختيار أو إنشاء مواد رقمية (فيديو، اختبارات).</li><li>تصميم أنشطة صفية تعمق التعلم الإلكتروني.</li><li>دمج تقييمات تغطي كلا الوضعين.</li>",
+            list_blend_adv: "<li>المرونة والتخصيص.</li><li>تحسين تفاعل الطلاب عبر التنوع.</li><li>فعال من حيث التكلفة مقارنة بالفصل التقليدي فقط.</li>",
+            list_blend_dis: "<li>مشاكل تقنية والوصول للتكنولوجيا.</li><li>يتطلب تدريباً إضافياً للمعلم.</li><li>وصول محدود لبعض الطلاب.</li>",
+            
+            st_webquest: "الرحلات المعرفية (WebQuest):", st_webquest_desc: "نشاط قائم على الاستقصاء باستخدام موارد الإنترنت للتعلم التعاوني.",
+            desc_web: "تنسيق درس موجه نحو البحث والاستقصاء حيث تأتي معظم أو كل المعلومات التي يعمل بها المتعلمون من الويب.",
+            list_web_steps: "<li>تحديد الموضوع والمهمة/التحدي المحدد.</li><li>تنظيم قائمة بموارد الويب الموثوقة للطلاب.</li><li>إنشاء دليل للعملية بأدوار/خطوات واضحة.</li><li>يقوم الطلاب بتجميع المعلومات وعرض النتائج.</li>",
+            list_web_adv: "<li>يعزز التعلم المتمركز حول الطالب والتعاوني.</li><li>يعزز التفكير الناقد والتحليل.</li><li>يزيد التفاعل والمشاركة.</li>",
+            list_web_dis: "<li>مشاكل التكنولوجيا/الاتصال.</li><li>عملية بحث تستغرق وقتاً طويلاً.</li><li>تتطلب تعليمات واضحة جداً.</li>",
+            
+            st_flipped: "الفصل المقلوب:", st_flipped_desc: "مشاهدة المحتوى في المنزل، وممارسة الأنشطة/حل المشكلات في الفصل.",
+            desc_flip: "استراتيجية تعكس بيئة التعلم التقليدية من خلال تقديم المحتوى التعليمي، غالباً عبر الإنترنت، خارج الفصل الدراسي.",
+            list_flip_steps: "<li>تسجيل محاضرات أو اختيار محتوى فيديو للمشاهدة المنزلية.</li><li>مشاركة المحتوى مع الطلاب للمشاهدة قبل الفصل.</li><li>استخدام وقت الفصل لحل المشكلات والمناقشة النشطة.</li><li>تقديم إرشاد فوري أثناء الممارسة.</li>",
+            list_flip_adv: "<li>زيادة التفاعل أثناء وقت الفصل.</li><li>تخصيص سرعة التعلم في المنزل.</li><li>تفاعل أكثر بين المعلم والطالب أثناء الممارسة.</li>",
+            list_flip_dis: "<li>يعتمد بشدة على توفر التكنولوجيا في المنزل.</li><li>إعداد يستغرق وقتاً طويلاً للمعلمين.</li><li>ارتباك محتمل للطلاب الجدد على النموذج.</li>",
+            
+            st_diff: "التعليم المتمايز:", st_diff_desc: "تكييف التدريس لتلبية احتياجات وقدرات التعلم المتنوعة.",
+            desc_diff: "تكييف التدريس لتلبية الاحتياجات الفردية من خلال تنويع المحتوى، العملية، المنتجات، أو بيئة التعلم.",
+            list_diff_steps: "<li>تقييم استعداد الطلاب، اهتماماتهم، وملفات تعلمهم.</li><li>تعديل المحتوى (ما يتم تعلمه) أو العملية (كيف يتم تعلمه).</li><li>توفير خيارات مختلفة للمنتج النهائي (التقييم).</li><li>استخدام استراتيجيات تجميع مرنة.</li>",
+            list_diff_adv: "<li>يزيد التفاعل بتلبية الاحتياجات الفردية.</li><li>يعزز الفصول الدراسية الشاملة.</li><li>يدعم مسارات التعلم الشخصية.</li>",
+            list_diff_dis: "<li>يستغرق تصميمه وقتاً طويلاً للغاية.</li><li>يتطلب تخطيطاً مكثفاً.</li><li>التقييم قد يكون معقداً.</li>",
+            
+            st_prog: "التعليم المبرمج:", st_prog_desc: "مادة تعليمية متسلسلة خطية ذاتية الخطو.",
+            desc_prog: "طريقة لتقديم مادة دراسية جديدة للطلاب في تسلسل متدرج من الخطوات الخاضعة للرقابة.",
+            list_prog_steps: "<li>تقسيم المحتوى إلى إطارات صغيرة قابلة للإدارة.</li><li>ترتيب الإطارات في تسلسل منطقي وخطي.</li><li>طلب استجابة الطالب في كل خطوة.</li><li>تقديم تغذية راجعة/تعزيز فوري.</li>",
+            list_prog_adv: "<li>تعلم ذاتي الخطو وتعليم متسق.</li><li>تغذية راجعة فورية حول التقدم.</li><li>سهولة مراقبة تقدم الطالب.</li>",
+            list_prog_dis: "<li>تفاعل محدود واتصال بشري قليل.</li><li>قد يكون متكرراً/مميلاً.</li><li>غير مناسب للمواضيع المعقدة/الدقيقة.</li>",
+            
+            st_create: "استراتيجيات التفكير الإبداعي:", st_create_desc: "طرق لتوليد وتطوير أفكار مبتكرة جديدة.",
+            desc_create: "طرق وتقنيات متنوعة تستخدم لمساعدة الأفراد على توليد وتطوير أفكار جديدة ومبتكرة تتجاوز الحلول القياسية.",
+            list_create_steps: "<li>اختيار تقنية (مثل الخرائط الذهنية).</li><li>تحديد المشكلة المركزية أو الموضوع.</li><li>تفريغ الأفكار أو ربط مفاهيم غير مترابطة.</li><li>تطوير وتنقيح الأفكار الواعدة.</li>",
+            list_create_meth: "<li><strong>العصف الذهني:</strong> توليد سريع للأفكار دون حكم.</li><li><strong>الخرائط الذهنية:</strong> تمثيل بصري للروابط.</li><li><strong>الربط الإجباري:</strong> ربط مفاهيم غير مترابطة.</li>",
+
+
+            s4_title: "نظم التقويم",
+            s4_h3_1: "أ. وسائل التقويم التكويني (البنائي)", s4_p1: "الغرض: مراجعة أداء الطالب وعمل تغذية راجعة لتصحيح المسار.",
+            ass_quiz: "الأسئلة السريعة (Quizzes)", ass_mid: "اختبارات منتصف الفصل", ass_pres: "العروض التقديمية", ass_rep: "التقارير والأبحاث", ass_assign: "التمارين الدورية", ass_lab: "التجارب المعملية/الحقلية",
+            s4_h3_2: "ب. وسائل التقويم التجميعي (الختامي)", s4_p2: "الغرض: تقييم الأداء في صورة درجات تعبر عن مستوى تحقيق المخرجات.",
+            ass_final_w: "اختبارات نهاية الفصل التحريرية", ass_final_o: "اختبارات نهاية الفصل الشفهية", ass_final_p: "اختبارات نهاية الفصل العملية", ass_proj: "تسليم المشروعات",
+            opt_explain: "شرح وتوضيح", opt_matrix: "مصفوفة المقارنة",
+            step_formative_detail: "إجراء أسئلة قصيرة ومتكررة -> مراجعة إجابات الطلاب فوراً -> تقديم ملاحظات محددة حول الأخطاء -> السماح للطالب بتصحيح فهمه قبل الامتحانات الكبرى.",
+            step_summative_detail: "إجراء امتحان شامل في نهاية الفصل -> تقييم الأداء بناءً على معايير صارمة -> ترجمة الأداء إلى درجة رقمية -> قياس مدى تحقيق مخرجات التعلم.",
+
+            q_title: "مراجعة تفاعلية وامتحان نهائي",
+            q1_text: "1. أي نمط تعلم يفضل الرسوم البيانية والخرائط؟",
+            q_opt_auditory: "السمعي", q_opt_visual: "البصري", q_opt_kinesthetic: "الحركي",
+            q2_text: "2. يركز العصف الذهني بشكل أساسي على:",
+            q2_opt_logic: "القيود المنطقية", q2_opt_creative: "توليد الأفكار الإبداعية", q2_opt_grading: "الدرجات النهائية",
+            q3_text: "3. يهدف التقويم التكويني إلى:",
+            q3_opt_feedback: "التغذية الراجعة وتصحيح المسار", q3_opt_final: "إعطاء درجة نهائية",
+            q4_text: "4. أي استراتيجية هي الأفضل لتطوير مهارات إدارة الفريق؟",
+            q4_opt_lecture: "المحاضرة التفاعلية", q4_opt_collab: "المشروعات الجماعية", q4_opt_online: "التعلم الذاتي",
+            q5_text: "5. التعلم القائم على حل المشكلات يبدأ بـ:",
+            q5_opt_solution: "تقديم الحل", q5_opt_problem: "تحليل المشكلة", q5_opt_exam: "أداء الامتحان",
+            
+            final_exam_title: "محاكاة الامتحان النهائي",
+            final_exam_desc: "يقيس الامتحان التحريري النهائي المعارف والمهارات الذهنية والمهنية باستخدام أسئلة مقالية قصيرة ومهام حل المشكلات.",
+            final_q1: "سؤال نهائي 1: فرق بين التدريس والتعلم.",
+            final_a1: "التدريس هو تيسير من المعلم؛ التعلم هو جهد ذاتي.", final_a2: "هما نفس الشيء تماماً.",
+            
+            reflect_title: "تأمل", reflect_prompt: "صف باختصار كيف يفيد 'التعلم القائم على حل المشكلات' الطالب.",
+            btn_show: "أظهر الإجابة النموذجية", btn_clear: "مسح",
+            ans_label: "الإجابة النموذجية:", ans_text: "ينمي قدرة الطالب على البحث والتحليل والتقييم والمقارنة بين الحلول المقترحة، بدءاً من تحليل المشكلة واستنتاج مسبباتها.",
+            
+            footer_text: "All rights are reserved to Dr. Mazen Badawy – Doctorate of English Teaching & Testing"
+        }
+    };
+
+    // --- STRATEGY INSTRUCTIONS (Detailed HTML in Boxes) ---
+    const instructions = {
+        s1: {
+            lecture: { 
+                en: {t: "<strong class='note-title'>Teacher Steps:</strong><ul><li>Introduce definitions clearly.</li><li>Ask students to differentiate.</li><li>Clarify misconceptions.</li></ul>", s: "<strong class='note-title'>Student Steps:</strong><ul><li>Listen actively.</li><li>Note key differences.</li><li>Ask questions for clarity.</li></ul>"},
+                ar: {t: "<strong class='note-title'>خطوات المعلم:</strong><ul><li>طرح التعريفات بوضوح.</li><li>سؤال الطلاب عن الفرق.</li><li>توضيح المفاهيم الخاطئة.</li></ul>", s: "<strong class='note-title'>خطوات الطالب:</strong><ul><li>الاستماع بنشاط.</li><li>تدوين الفروق الجوهرية.</li><li>طرح الأسئلة للتوضيح.</li></ul>"}
+            },
+            self_learning: {
+                en: {t: "<strong class='note-title'>Teacher Steps:</strong><ul><li>Assign reading material.</li><li>Prepare discussion points.</li><li>Facilitate Q&A session.</li></ul>", s: "<strong class='note-title'>Student Steps:</strong><ul><li>Read material independently.</li><li>Prepare questions.</li><li>Participate in discussion.</li></ul>"},
+                ar: {t: "<strong class='note-title'>خطوات المعلم:</strong><ul><li>تحديد مادة القراءة.</li><li>إعداد نقاط المناقشة.</li><li>تيسير جلسة الأسئلة والأجوبة.</li></ul>", s: "<strong class='note-title'>خطوات الطالب:</strong><ul><li>قراءة المادة بشكل مستقل.</li><li>تجهيز الأسئلة.</li><li>المشاركة في المناقشة.</li></ul>"}
+            }
+        },
+        s2: {
+            presentation: {
+                en: {t: "<strong class='note-title'>Teacher Steps:</strong><ul><li>Display VARK diagram.</li><li>Explain each quadrant.</li><li>Use images and charts.</li></ul>", s: "<strong class='note-title'>Student Steps:</strong><ul><li>Observe the visual aids.</li><li>Identify own preference.</li><li>Take visual notes.</li></ul>"},
+                ar: {t: "<strong class='note-title'>خطوات المعلم:</strong><ul><li>عرض مخطط VARK.</li><li>شرح كل قسم.</li><li>استخدام الصور والرسوم.</li></ul>", s: "<strong class='note-title'>خطوات الطالب:</strong><ul><li>ملاحظة الوسائل البصرية.</li><li>تحديد التفضيل الشخصي.</li><li>تدوين ملاحظات بصرية.</li></ul>"}
+            },
+            experiential: {
+                en: {t: "<strong class='note-title'>Teacher Steps:</strong><ul><li>Assign a physical task.</li><li>Observe student approach.</li><li>Discuss the experience.</li></ul>", s: "<strong class='note-title'>Student Steps:</strong><ul><li>Perform the task manually.</li><li>Reflect on the process.</li><li>Connect action to learning.</li></ul>"},
+                ar: {t: "<strong class='note-title'>خطوات المعلم:</strong><ul><li>تعيين مهمة جسدية.</li><li>مراقبة نهج الطالب.</li><li>مناقشة التجربة.</li></ul>", s: "<strong class='note-title'>خطوات الطالب:</strong><ul><li>تنفيذ المهمة يدوياً.</li><li>التأمل في العملية.</li><li>ربط الفعل بالتعلم.</li></ul>"}
+            }
+        },
+        s3: {
+            list: { 
+                en: {t: "<strong class='note-title'>Teacher Steps:</strong><ul><li>List all strategies.</li><li>Briefly define each.</li><li>Connect to learning outcomes.</li></ul>", s: "<strong class='note-title'>Student Steps:</strong><ul><li>Review the full list.</li><li>Understand the variety.</li><li>Select applicable methods.</li></ul>"}, 
+                ar: {t: "<strong class='note-title'>خطوات المعلم:</strong><ul><li>سرد جميع الاستراتيجيات.</li><li>تعريف كل منها بإيجاز.</li><li>ربطها بنواتج التعلم.</li></ul>", s: "<strong class='note-title'>خطوات الطالب:</strong><ul><li>مراجعة القائمة الكاملة.</li><li>فهم التنوع في الطرق.</li><li>تحديد الطرق المطبقة.</li></ul>"} 
+            },
+            brainstorm: { 
+                en: {t: "<strong class='note-title'>Teacher Steps:</strong><ul><li>Define the problem.</li><li>Accept ALL ideas.</li><li>Cluster similar ideas.</li></ul>", s: "<strong class='note-title'>Student Steps:</strong><ul><li>Share ideas freely.</li><li>Don't criticize others.</li><li>Build on other ideas.</li></ul>"}, 
+                ar: {t: "<strong class='note-title'>خطوات المعلم:</strong><ul><li>تحديد المشكلة.</li><li>قبول كل الأفكار.</li><li>تجميع الأفكار المتشابهة.</li></ul>", s: "<strong class='note-title'>خطوات الطالب:</strong><ul><li>مشاركة الأفكار بحرية.</li><li>عدم انتقاد الآخرين.</li><li>البناء على أفكار الزملاء.</li></ul>"} 
+            },
+            projects: { 
+                en: {t: "<strong class='note-title'>Teacher Steps:</strong><ul><li>Assign group roles.</li><li>Set project milestones.</li><li>Monitor team dynamics.</li></ul>", s: "<strong class='note-title'>Student Steps:</strong><ul><li>Collaborate with peers.</li><li>Manage time effectively.</li><li>Deliver final project.</li></ul>"}, 
+                ar: {t: "<strong class='note-title'>خطوات المعلم:</strong><ul><li>توزيع أدوار المجموعات.</li><li>تحديد مراحل المشروع.</li><li>مراقبة ديناميكيات الفريق.</li></ul>", s: "<strong class='note-title'>خطوات الطالب:</strong><ul><li>التعاون مع الأقران.</li><li>إدارة الوقت بفعالية.</li><li>تسليم المشروع النهائي.</li></ul>"} 
+            },
+            pbl: { 
+                en: {t: "<strong class='note-title'>Teacher Steps:</strong><ul><li>Present complex scenario.</li><li>Guide inquiry process.</li><li>Evaluate proposed solution.</li></ul>", s: "<strong class='note-title'>Student Steps:</strong><ul><li>Analyze the problem.</li><li>Research potential causes.</li><li>Propose evidence-based solution.</li></ul>"}, 
+                ar: {t: "<strong class='note-title'>خطوات المعلم:</strong><ul><li>عرض سيناريو معقد.</li><li>توجيه عملية الاستقصاء.</li><li>تقييم الحل المقترح.</li></ul>", s: "<strong class='note-title'>خطوات الطالب:</strong><ul><li>تحليل المشكلة.</li><li>البحث عن الأسباب المحتملة.</li><li>اقتراح حل مبني على أدلة.</li></ul>"} 
+            }
+        },
+        s4: {
+            lecture: { 
+                en: {t: "<strong class='note-title'>Teacher Steps:</strong><ul><li>Explain assessment types.</li><li>Clarify grading weights.</li><li>Answer procedural questions.</li></ul>", s: "<strong class='note-title'>Student Steps:</strong><ul><li>Note assessment dates.</li><li>Understand expectations.</li><li>Plan study schedule.</li></ul>"}, 
+                ar: {t: "<strong class='note-title'>خطوات المعلم:</strong><ul><li>شرح أنواع التقويم.</li><li>توضيح أوزان الدرجات.</li><li>الإجابة عن الأسئلة الإجرائية.</li></ul>", s: "<strong class='note-title'>خطوات الطالب:</strong><ul><li>تدوين تواريخ التقويم.</li><li>فهم التوقعات.</li><li>تخطيط جدول الدراسة.</li></ul>"} 
+            },
+            matrix: { 
+                en: {t: "<strong class='note-title'>Teacher Steps:</strong><ul><li>Draw comparison grid.</li><li>Highlight key differences.</li><li>Show feedback loop.</li></ul>", s: "<strong class='note-title'>Student Steps:</strong><ul><li>Compare Formative vs Summative.</li><li>Identify purpose of each.</li><li>Recognize feedback role.</li></ul>"}, 
+                ar: {t: "<strong class='note-title'>خطوات المعلم:</strong><ul><li>رسم شبكة المقارنة.</li><li>إبراز الفروق الجوهرية.</li><li>توضيح حلقة التغذية الراجعة.</li></ul>", s: "<strong class='note-title'>خطوات الطالب:</strong><ul><li>مقارنة التكويني بالختامي.</li><li>تحديد الغرض من كل نوع.</li><li>إدراك دور التغذية الراجعة.</li></ul>"} 
+            }
+        }
+    };
+
+    let currentLang = 'en';
+
+    function toggleLanguage() {
+        currentLang = currentLang === 'en' ? 'ar' : 'en';
+        const isRTL = currentLang === 'ar';
+        
+        document.body.classList.toggle('rtl', isRTL);
+        document.body.classList.toggle('ltr', !isRTL);
+        
+        document.getElementById('lang-btn').textContent = isRTL ? 'English' : 'عربي';
+
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (contentData[currentLang][key]) {
+                if (contentData[currentLang][key].includes('<')) {
+                     el.innerHTML = contentData[currentLang][key];
+                } else {
+                     el.textContent = contentData[currentLang][key];
+                }
+            }
+        });
+
+        document.querySelectorAll('.strategy-select').forEach(select => {
+            const sectionId = select.parentElement.parentElement.id.replace('section-', '');
+            if(sectionId === 'intro') updateView('s1', select.value);
+            if(sectionId === 'vark') updateView('s2', select.value);
+            if(sectionId === 'strategies') updateView('s3', select.value);
+            if(sectionId === 'assessment') updateView('s4', select.value);
+        });
+    }
+
+    function updateView(sectionCode, value) {
+        const tNote = document.getElementById(`${sectionCode}-teacher`);
+        const sNote = document.getElementById(`${sectionCode}-student`);
+        const content = document.getElementById(`${sectionCode}-content`);
+
+        if(instructions[sectionCode] && instructions[sectionCode][value]) {
+            tNote.innerHTML = instructions[sectionCode][value][currentLang].t;
+            sNote.innerHTML = instructions[sectionCode][value][currentLang].s;
+        }
+
+        if (content) {
+            content.classList.remove('chunked-mode', 'grid-mode');
+            if(value === 'projects' || value === 'jigsaw' || value === 'pbl') {
+                content.classList.add('chunked-mode');
+            }
+            if(value === 'matrix' || value === 'brainstorm') {
+                content.classList.add('grid-mode');
+            }
+        }
+    }
+
+    function toggleDownload() {
+        document.getElementById("dl-menu").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+        if (!event.target.matches('#dl-btn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+
+    function toggleSidebar() {
+        const sb = document.getElementById('sidebar');
+        const ov = document.getElementById('overlay');
+        if(sb.classList.contains('active')) {
+            sb.classList.remove('active');
+            ov.classList.remove('active');
+        } else {
+            sb.classList.add('active');
+            ov.classList.add('active');
+        }
+    }
+
+    function navClick(id) {
+        scrollToId(id);
+        if(window.innerWidth < 800) toggleSidebar();
+    }
+
+    function scrollToId(id) {
+        document.getElementById(id).scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
+
+    function adjustZoom(amount) {
+        const html = document.documentElement;
+        let size = parseFloat(getComputedStyle(html).fontSize);
+        html.style.fontSize = (size + amount) + "px";
+    }
+
+    function checkAnswer(btn, isCorrect) {
+        const parent = btn.parentElement;
+        Array.from(parent.children).forEach(c => c.classList.remove('correct', 'incorrect'));
+        if(isCorrect) btn.classList.add('correct');
+        else btn.classList.add('incorrect');
+    }
+
+    function toggleModelAnswer() {
+        const box = document.getElementById('modelAnswer');
+        box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function clearReflection() {
+        document.getElementById('reflectionInput').value = '';
+        document.getElementById('modelAnswer').style.display = 'none';
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+                const id = entry.target.id;
+                const btn = document.getElementById(`nav-${id}`);
+                if (btn) btn.classList.add('active');
+            }
+        });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('section').forEach(section => observer.observe(section));
+
+    window.onload = function() {
+        updateView('s1', 'lecture');
+        updateView('s2', 'presentation');
+        updateView('s3', 'list');
+        updateView('s4', 'lecture');
+    };
+</script>
+</body>
+</html>
