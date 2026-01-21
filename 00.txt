@@ -1,0 +1,47 @@
+Transform the provided PDF contents into a single-file HTML lesson presentation containing three tabbed sections. All resources (images, audio, icons, fonts, JavaScript, and CSS) must be embedded offline within the file. Use traditional, readable fonts and apply a light-blue gradient theme.
+
+Tab 1: Lesson Presentation
+
+Display the lesson text in separate paragraphs.
+
+For each sentence, select at least one keyword and add:
+
+A hover-triggered pop-up showing its Arabic meaning and a representative icon.
+
+Insert a text-to-speech (TTS) button under each passage.
+
+Include an MCQ activity based on the lesson content from the PDF.
+
+Tab 2: Conversation
+
+Place a fixed image placeholder on the right side for file 00.png.
+
+ include a floating audio control that plays the external conversation file 00.mp3.
+If I scroll the question, the image and the MP3 control tool must be fixed within the displayed area.
+the Conversation Tab as requested. The screen width is now distributed so that the MCQ items take up 66.66% (two-thirds) and the Audio Control sidebar takes up 33.33% (one-third)
+Consider that the file will be played on Android, take necessary steps to handle MP3 running on Android without any problem regarding security blocks.
+
+Add an MCQ section with a scrollable container for items.
+
+Provide a collapsible drop-down panel showing the full conversation script, including a play button for revision.
+
+Tab 3: Grammar
+
+Create interactive grammar drills, vocabulary activities, and supplementary materials derived from the PDF.
+
+Support exercises with icons and responsive elements.
+
+Implement drag-and-drop interactions where applicable.
+
+Add a “Show Answer” button for each drill.
+
+General Requirements (Apply Across All Sections)
+
+Under every short-answer and translation question, include a collapsible drop-down to reveal the correct answer.
+
+Add “Show Answer” functionality to all drills and activities. When selected in MCQ, give green for the right answer and red for the wrong one. The MCQ logic:  as soon as you click an option, it will immediately turn Green (if correct) or Red (if incorrect).
+
+optimized the vertical layout to save screen height. The title, tabs, and content sections are more compact, allowing more questions to fit on the screen at once.
+Larger Content Text: Increased reading passages, MCQ questions, and options by approximately 10-15% for better readability.
+Compact Headers: Kept titles and tabs small to maintain the improved screen real estate.
+Ensure the entire design uses a light-blue gradient background theme.
