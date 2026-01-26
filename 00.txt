@@ -23,7 +23,7 @@ o	Visual confirmation of mastery (e.g., interactive checklist with strikethrough
 ________________________________________
 Resources & Strategies
 •	Clearly list all materials and resources needed for the lesson.
-•	Provide strategies for instruction; strategies will be per lesson part and predefined, e.g., Lecture, Cooperative Learning, Self-Learning.
+•	Provide strategies for instruction; strategies will be per lesson part and predefined, e.g., Interactive Lecture , Guided Field Trips , E-Learning , Discussion and Dialogue , Research and Reporting , Problem-Based Learning , Experiential Learning , Brainstorming , Group Projects , Presentations..
 •	Resources and strategies must be explicitly linked to each part of the lesson to support low-achiever learners.
 ________________________________________
 Interactive Lesson Flow
@@ -79,4 +79,5 @@ o	Centralized JSON object for all translatable text.
 •	Responsive design: Mobile, tablet, desktop.
 •	Dynamic strategy panels: Each lesson part updates Teacher/Student panels individually when a strategy is selected.
 •	Interactive elements: Objectives checklist, activities, practice tasks, review activities, evaluation questions.
+
 
