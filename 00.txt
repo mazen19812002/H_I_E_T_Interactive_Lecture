@@ -1,47 +1,82 @@
-Transform the provided PDF contents into a single-file HTML lesson presentation containing three tabbed sections. All resources (images, audio, icons, fonts, JavaScript, and CSS) must be embedded offline within the file. Use traditional, readable fonts and apply a light-blue gradient theme.
+Create a single-file, offline-capable HTML application serving as a bilingual (English/Arabic) interactive educational resource explicitly designed for university  low-achieving learners.
+The design and functionality must strictly follow the specifications below to present and fully explain the entire attached PDF in extreme detail — no summarization, no omission, no compression.
+All content must be:
+•	Completely covered, including every single page of the PDF.
+•	Broken down into very small, sequential steps
+•	Explained using simple, clear language
+•	Supported with examples, restatements, and visual cues
+•	Repeated where necessary using different explanations to ensure understanding
+•	Any activity must have at least 5 items
+•	Multiple-choice questions must always have exactly 4 options
+The page must be suitable for learners who:
+•	Struggle with comprehension
+•	Need slow pacing
+•	Require explicit guidance and reinforcement
+•	Cannot infer meaning without direct explanation
+________________________________________
+Learning Objectives
+•	Present all learning objectives formulated according to Bloom’s Taxonomy, ranging from Remember, Understand, Apply, Analyze, Evaluate, to Create.
+•	Each objective must include:
+o	A very simple explanation
+o	Expected learner actions
+o	Visual confirmation of mastery (e.g., interactive checklist with strikethrough)
+________________________________________
+Resources & Strategies
+•	Clearly list all materials and resources needed for the lesson.
+•	Provide strategies for instruction; strategies will be per lesson part and predefined, e.g., Lecture, Cooperative Learning, Self-Learning.
+•	Resources and strategies must be explicitly linked to each part of the lesson to support low-achiever learners.
+________________________________________
+Interactive Lesson Flow
+1.	Review
+o	Activities that reinforce prior knowledge and consolidate previously learned material.
+o	Must be interactive, simple, and clearly guided for low-achiever learners.
+o	Each activity must have at least 5 items.
+o	Visual aids, examples, and step-by-step instructions are mandatory.
+2.	Warm-up
+o	Activities designed to prepare learners for the lesson in hand.
+o	Must activate curiosity and engage attention in an easy-to-follow way.
+o	Each activity must have at least 5 items.
+o	Visuals, examples, and simple interactivity must be included.
+3.	Presentation
+o	The lesson is divided into clearly numbered parts.
+o	Each part has its own strategy selection dropdown from the predefined list.
+o	When a strategy is selected:
+	Teacher Role Panel (Amber) explains step-by-step how the teacher presents that part.
+	Student Role Panel (Blue) explains exactly how students interact, using explicit, easy-to-follow actions.
+o	Each part must include:
+	Full detailed explanation of content
+	Visual aids (charts, diagrams, emojis)
+	Key terms explained in simple language
+	Reinforcement examples
+4.	Practice
+o	Includes activities that allow learners to apply what they learned.
+o	Activities must be interactive, scaffolded, and simple, with feedback and guidance.
+o	Each activity must have at least 5 items.
+o	Activities should correspond directly to the parts in the presentation.
+5.	Assignment
+o	Tasks that extend learning outside the app.
+o	Instructions must be clear, step-by-step, and low-pressure.
+o	Each activity must have at least 5 items.
+________________________________________
+Final Evaluation
+•	Questions must be grouped under Learning Objectives.
+•	Each objective must have at least 10 questions.
+•	Questions must be distributed across all levels of Bloom’s Taxonomy (Remember, Understand, Apply, Analyze, Evaluate, Create).
+•	Multiple-choice questions must always have exactly 4 options.
+•	Question types:
+o	Interactive multiple-choice
+o	Immediate feedback:
+	✅ Green + explanation for correct
+	❌ Red + shake animation + simplified correction for incorrect
+•	Language must be encouraging, supportive, and low-stress for learners.
+________________________________________
+Technical Requirements
+•	Single-file HTML: Embed all HTML, CSS, and JavaScript; no external libraries.
+•	Bilingual support:
+o	Header toggle switches all text and layout (LTR/RTL).
+o	Centralized JSON object for all translatable text.
+•	Offline capability: Fully functional without internet.
+•	Responsive design: Mobile, tablet, desktop.
+•	Dynamic strategy panels: Each lesson part updates Teacher/Student panels individually when a strategy is selected.
+•	Interactive elements: Objectives checklist, activities, practice tasks, review activities, evaluation questions.
 
-Tab 1: Lesson Presentation
-
-Display the lesson text in separate paragraphs.
-
-For each sentence, select at least one keyword and add:
-
-A hover-triggered pop-up showing its Arabic meaning and a representative icon.
-
-Insert a text-to-speech (TTS) button under each passage.
-
-Include an MCQ activity based on the lesson content from the PDF.
-
-Tab 2: Conversation
-
-Place a fixed image placeholder on the right side for file 00.png.
-
- include a floating audio control that plays the external conversation file 00.mp3.
-If I scroll the question, the image and the MP3 control tool must be fixed within the displayed area.
-the Conversation Tab as requested. The screen width is now distributed so that the MCQ items take up 66.66% (two-thirds) and the Audio Control sidebar takes up 33.33% (one-third)
-Consider that the file will be played on Android, take necessary steps to handle MP3 running on Android without any problem regarding security blocks.
-
-Add an MCQ section with a scrollable container for items.
-
-Provide a collapsible drop-down panel showing the full conversation script, including a play button for revision.
-
-Tab 3: Grammar
-
-Create interactive grammar drills, vocabulary activities, and supplementary materials derived from the PDF.
-
-Support exercises with icons and responsive elements.
-
-Implement drag-and-drop interactions where applicable.
-
-Add a “Show Answer” button for each drill.
-
-General Requirements (Apply Across All Sections)
-
-Under every short-answer and translation question, include a collapsible drop-down to reveal the correct answer.
-
-Add “Show Answer” functionality to all drills and activities. When selected in MCQ, give green for the right answer and red for the wrong one. The MCQ logic:  as soon as you click an option, it will immediately turn Green (if correct) or Red (if incorrect).
-
-optimized the vertical layout to save screen height. The title, tabs, and content sections are more compact, allowing more questions to fit on the screen at once.
-Larger Content Text: Increased reading passages, MCQ questions, and options by approximately 10-15% for better readability.
-Compact Headers: Kept titles and tabs small to maintain the improved screen real estate.
-Ensure the entire design uses a light-blue gradient background theme.
